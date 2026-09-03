@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LabelCheck - Scan. Verify. Trust.</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <div class="splash-logo">
+                <svg viewBox="0 0 120 120" class="logo-svg" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#0066FF"/>
+                            <stop offset="100%" style="stop-color:#00C2A8"/>
+                        </linearGradient>
+                        <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#0066FF"/>
+                            <stop offset="100%" style="stop-color:#00A896"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Shield shape -->
+                    <path d="M60 8 L100 28 L100 60 Q100 95 60 112 Q20 95 20 60 L20 28 Z" 
+                          fill="url(#shieldGradient)" opacity="0.15"/>
+                    <path d="M60 12 L96 30 L96 60 Q96 92 60 108 Q24 92 24 60 L24 30 Z" 
+                          fill="none" stroke="url(#logoGradient)" stroke-width="2.5"/>
+                    <!-- Barcode lines -->
+                    <rect x="38" y="35" width="3" height="35" rx="1" fill="url(#logoGradient)" opacity="0.8"/>
+                    <rect x="44" y="40" width="2" height="30" rx="1" fill="url(#logoGradient)" opacity="0.6"/>
+                    <rect x="49" y="35" width="4" height="35" rx="1" fill="url(#logoGradient)" opacity="0.9"/>
+                    <rect x="56" y="42" width="2" height="28" rx="1" fill="url(#logoGradient)" opacity="0.7"/>
+                    <rect x="61" y="35" width="3" height="35" rx="1" fill="url(#logoGradient)" opacity="0.85"/>
+                    <rect x="67" y="38" width="2" height="32" rx="1" fill="url(#logoGradient)" opacity="0.65"/>
+                    <rect x="72" y="35" width="4" height="35" rx="1" fill="url(#logoGradient)" opacity="0.75"/>
+                    <rect x="79" y="40" width="2" height="30" rx="1" fill="url(#logoGradient)" opacity="0.55"/>
+                    <!-- Scan line -->
+                    <line x1="32" y1="52" x2="88" y2="52" stroke="#00C2A8" stroke-width="1.5" opacity="0.8" class="scan-line"/>
+                    <!-- Checkmark -->
+                    <path d="M42 75 L52 85 L72 65" fill="none" stroke="url(#logoGradient)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h1 class="splash-title">LabelCheck</h1>
+            <p class="splash-tagline">Scan. Verify. Trust.</p>
+        </div>
+        <div class="splash-loader">
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" class="app-container hidden">
+        <!-- Top App Bar -->
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <svg viewBox="0 0 40 40" class="top-bar-logo" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="miniLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#0066FF"/>
+                            <stop offset="100%" style="stop-color:#00C2A8"/>
+                        </linearGradient>
+                    </defs>
+                    <rect x="4" y="4" width="32" height="32" rx="8" fill="url(#miniLogoGradient)"/>
+                    <rect x="12" y="12" width="2" height="14" rx="1" fill="white" opacity="0.9"/>
+                    <rect x="16" y="14" width="1.5" height="12" rx="0.75" fill="white" opacity="0.7"/>
+                    <rect x="20" y="12" width="2.5" height="14" rx="1" fill="white" opacity="0.85"/>
+                    <rect x="24" y="13" width="1.5" height="13" rx="0.75" fill="white" opacity="0.75"/>
+                    <path d="M12 30 L16 34 L26 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="app-name">LabelCheck</span>
+            </div>
+            <div class="top-bar-right">
+                <button class="lang-btn">EN</button>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Hero Scan Section -->
+            <section class="hero-section">
+                <div class="scan-cta-container">
+                    <button class="scan-cta" id="scanButton">
+                        <div class="scan-cta-inner">
+                            <svg class="scan-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M3 7V5a2 2 0 012-2h2"/>
+                                <path d="M17 3h2a2 2 0 012 2v2"/>
+                                <path d="M21 17v2a2 2 0 01-2 2h-2"/>
+                                <path d="M7 21H5a2 2 0 01-2-2v-2"/>
+                                <path d="M7 12h10"/>
+                            </svg>
+                            <div class="scan-text">
+                                <span class="scan-main">Scan Product Label</span>
+                                <span class="scan-sub">Point camera at barcode or ingredients</span>
+                            </div>
+                            <div class="scan-pulse"></div>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Quick Access Cards -->
+            <section class="quick-cards">
+                <div class="quick-cards-scroll">
+                    <button class="quick-card" data-page="recent">
+                        <div class="quick-card-icon" style="background: linear-gradient(135deg, #0066FF 0%, #0052CC 100%);">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12,6 12,12 16,14"/>
+                            </svg>
+                        </div>
+                        <span class="quick-card-label">Recent Scans</span>
+                    </button>
+                    <button class="quick-card" data-page="violations">
+                        <div class="quick-card-icon" style="background: linear-gradient(135deg, #FF6B35 0%, #E85D26 100%);">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                                <line x1="12" y1="9" x2="12" y2="13"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                        </div>
+                        <span class="quick-card-label">Common Violations</span>
+                    </button>
+                    <button class="quick-card" data-page="report">
+                        <div class="quick-card-icon" style="background: linear-gradient(135deg, #00C2A8 0%, #00A896 100%);">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                                <polyline points="14,2 14,8 20,8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                                <polyline points="10,9 9,9 8,9"/>
+                            </svg>
+                        </div>
+                        <span class="quick-card-label">Report a Product</span>
+                    </button>
+                    <button class="quick-card" data-page="rights">
+                        <div class="quick-card-icon" style="background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                        </div>
+                        <span class="quick-card-label">Know Your Rights</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Recent Scans Feed -->
+            <section class="feed-section">
+                <div class="section-header">
+                    <h2>Recently Scanned</h2>
+                    <button class="see-all-btn">See All</button>
+                </div>
+                <div class="feed-list" id="feedList">
+                    <!-- Feed items will be inserted by JS -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-tab="home">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                    <polyline points="9,22 9,12 15,12 15,22"/>
+                </svg>
+                <span>Home</span>
+            </button>
+            <button class="nav-item scan-nav" data-tab="scan">
+                <div class="scan-nav-btn">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M3 7V5a2 2 0 012-2h2"/>
+                        <path d="M17 3h2a2 2 0 012 2v2"/>
+                        <path d="M21 17v2a2 2 0 01-2 2h-2"/>
+                        <path d="M7 21H5a2 2 0 01-2-2v-2"/>
+                        <path d="M7 12h10"/>
+                    </svg>
+                </div>
+                <span>Scan</span>
+            </button>
+            <button class="nav-item" data-tab="history">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12,6 12,12 16,14"/>
+                </svg>
+                <span>History</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Scan Modal -->
+    <div id="scanModal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content scan-modal-content">
+            <div class="modal-header">
+                <h2>Scan Label</h2>
+                <button class="modal-close" id="closeScanModal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="camera-view">
+                <div class="camera-placeholder">
+                    <div class="scan-frame">
+                        <div class="scan-corner top-left"></div>
+                        <div class="scan-corner top-right"></div>
+                        <div class="scan-corner bottom-left"></div>
+                        <div class="scan-corner bottom-right"></div>
+                        <div class="scan-laser"></div>
+                    </div>
+                    <p class="scan-instruction">Align barcode within the frame</p>
+                </div>
+            </div>
+            <div class="scan-actions">
+                <button class="scan-action-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <polyline points="21,15 16,10 5,21"/>
+                    </svg>
+                    <span>Gallery</span>
+                </button>
+                <button class="scan-action-btn primary">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
+                        <circle cx="12" cy="13" r="4"/>
+                    </svg>
+                    <span>Capture</span>
+                </button>
+                <button class="scan-action-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/>
+                    </svg>
+                    <span>Flash</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content product-modal-content">
+            <div class="modal-header">
+                <button class="modal-back" id="closeProductModal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="19" y1="12" x2="5" y2="12"/>
+                        <polyline points="12,19 5,12 12,5"/>
+                    </svg>
+                </button>
+                <h2 id="productModalTitle">Product Details</h2>
+                <button class="modal-share">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="18" cy="5" r="3"/>
+                        <circle cx="6" cy="12" r="3"/>
+                        <circle cx="18" cy="19" r="3"/>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="product-detail-body" id="productDetailBody">
+                <!-- Product details inserted by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
