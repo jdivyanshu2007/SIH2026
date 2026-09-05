@@ -2,277 +2,1360 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LabelCheck - Scan. Verify. Trust.</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>LabelCheck — Scan • Eat • Safe</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <style>
+        /* ============================================================
+           LabelCheck — Food Safety & Nutrition Scanner
+           Design tokens: soft white, light gray, blue, soft pink
+           ============================================================ */
+        :root {
+            /* Core palette */
+            --white: #FFFFFF;
+            --bg: #F7F9FC;
+            --gray-50: #F1F4F9;
+            --gray-100: #E7ECF3;
+            --gray-200: #D8E0EC;
+            --gray-300: #B9C4D6;
+            --gray-400: #98A6BC;
+            --gray-500: #64748B;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1E293B;
+            --gray-900: #0F172A;
+
+            /* Blue family */
+            --blue: #2B6FFF;
+            --blue-light: #EAF1FF;
+            --blue-mid: #4D9FFF;
+            --blue-dark: #1E50D6;
+            --gradient-blue: linear-gradient(135deg, #2B6FFF 0%, #4D9FFF 100%);
+            --glow-blue: rgba(43, 111, 255, 0.22);
+
+            /* Pink family */
+            --pink: #F472B6;
+            --pink-mid: #FB9BC0;
+            --pink-light: #FDE7F1;
+            --pink-dark: #DB2777;
+            --gradient-pink: linear-gradient(135deg, #F472B6 0%, #FB9BC0 100%);
+            --glow-pink: rgba(244, 114, 182, 0.20);
+
+            --gradient-app: linear-gradient(135deg, #2B6FFF 0%, #4D9FFF 45%, #F472B6 100%);
+
+            /* Grade colors (stays within blue/pink/gray family) */
+            --grade-a: #2B6FFF;   --grade-a-bg: #EAF1FF;
+            --grade-b: #1E9FE8;   --grade-b-bg: #E2F5FF;
+            --grade-c: #D2539A;   --grade-c-bg: #FDE7F1;
+            --grade-d: #E45A6B;   --grade-d-bg: #FEE9EC;
+            --grade-e: #8A95A8;   --grade-e-bg: #EEF1F6;
+
+            /* Radii */
+            --r-sm: 10px;
+            --r-md: 14px;
+            --r-lg: 18px;
+            --r-xl: 24px;
+            --r-full: 999px;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.08);
+            --shadow-md: 0 4px 10px rgba(15, 23, 42, 0.07), 0 8px 24px rgba(15, 23, 42, 0.06);
+            --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.10);
+            --shadow-glow: 0 16px 44px rgba(43, 111, 255, 0.22);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { font-size: 16px; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #DBE1EB;
+            color: var(--gray-800);
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        #root {
+            max-width: 430px; margin: 0 auto; min-height: 100vh;
+            background: var(--bg);
+            box-shadow: 0 0 60px rgba(15, 23, 42, 0.18);
+        }
+
+        button { font-family: inherit; border: none; background: none; cursor: pointer; }
+        a { text-decoration: none; color: inherit; }
+        img { display: block; max-width: 100%; }
+        input { font-family: inherit; }
+
+        /* ============ Helpers ============ */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .page { animation: pageIn 0.45s ease both; }
+        @keyframes pageIn {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============ Splash ============ */
+        .splash {
+            position: fixed; top: 0; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 100%; max-width: 430px; z-index: 100;
+            background: linear-gradient(160deg, #EAF1FF 0%, #F7F9FC 55%, #FDE7F1 100%);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .splash-logo { animation: glowPulse 1.6s ease-in-out infinite; }
+        @keyframes glowPulse {
+            0%, 100% { filter: drop-shadow(0 6px 24px var(--glow-blue)); }
+            50%      { filter: drop-shadow(0 10px 40px var(--glow-pink)) brightness(1.06); }
+        }
+        .splash-tagline {
+            margin-top: 22px; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.4em;
+            color: var(--gray-600); text-transform: uppercase;
+            animation: fadeUp 0.9s ease 0.35s both;
+        }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+        /* ============ Header ============ */
+        .header {
+            position: sticky; top: 0; z-index: 50;
+            background: rgba(255, 255, 255, 0.86);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .header-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            height: 64px;
+        }
+        .header-title { display: flex; align-items: center; gap: 10px; }
+        .header-name { font-size: 1.25rem; font-weight: 700; color: var(--gray-900); letter-spacing: -0.3px; }
+        .profile-btn {
+            width: 42px; height: 42px; border-radius: var(--r-full);
+            background: var(--gradient-app); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 1rem; box-shadow: var(--shadow-md);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .profile-btn:hover { transform: scale(1.06); box-shadow: var(--shadow-glow); }
+        .header-divider { height: 1px; background: var(--gray-100); }
+
+        /* ============ Buttons ============ */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 12px 22px; border-radius: var(--r-md); font-weight: 600; font-size: 0.95rem;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+        }
+        .btn:active { transform: scale(0.97); }
+        .btn-primary { background: var(--gradient-blue); color: #fff; box-shadow: 0 8px 20px var(--glow-blue); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(43, 111, 255, 0.3); }
+        .btn-pink { background: var(--gradient-pink); color: #fff; box-shadow: 0 8px 20px var(--glow-pink); }
+        .btn-pink:hover { transform: translateY(-2px); }
+        .btn-soft { background: var(--gray-100); color: var(--gray-700); }
+        .btn-soft:hover { background: var(--gray-200); }
+        .btn-outline { border: 1.5px solid var(--gray-200); color: var(--gray-600); background: #fff; }
+        .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+        .btn-block { width: 100%; }
+
+        /* Back button */
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            color: var(--gray-600); font-weight: 600; font-size: 0.95rem;
+            padding: 8px 12px; border-radius: var(--r-sm);
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+        .back-btn:hover { background: var(--gray-100); color: var(--gray-900); }
+
+        /* ============ Page titles ============ */
+        .page-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 26px 0 8px; }
+        .page-title { font-size: 1.6rem; font-weight: 700; color: var(--gray-900); letter-spacing: -0.4px; }
+        .page-sub { color: var(--gray-500); margin-bottom: 18px; font-size: 0.95rem; }
+
+        /* ============ Scan hero ============ */
+        .scan-hero {
+            position: relative; border-radius: var(--r-xl);
+            padding: 34px 30px; margin: 26px 0 8px; overflow: hidden;
+            background: linear-gradient(135deg, #ffffff 0%, #FBFCFF 55%, #FFF4F9 100%);
+            border: 1px solid var(--gray-100); box-shadow: var(--shadow-md);
+        }
+        .scan-hero::before {
+            content: ''; position: absolute; inset: -40%;
+            background: radial-gradient(40% 60% at 20% 10%, var(--glow-blue), transparent 70%),
+                        radial-gradient(40% 60% at 85% 90%, var(--glow-pink), transparent 70%);
+            pointer-events: none;
+        }
+        .scan-hero-inner { position: relative; z-index: 1; text-align: center; max-width: 560px; margin: 0 auto; }
+        .scan-hero h2 { font-size: 1.9rem; font-weight: 800; color: var(--gray-900); letter-spacing: -0.5px; }
+        .scan-hero p { color: var(--gray-500); margin: 8px 0 22px; font-size: 1rem; }
+        .scan-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .scan-icon-badge {
+            width: 74px; height: 74px; margin: 0 auto 18px; border-radius: var(--r-lg);
+            background: var(--gradient-app); color: #fff; display: flex; align-items: center; justify-content: center;
+            box-shadow: var(--shadow-glow);
+        }
+        .demo-note { margin-top: 18px; font-size: 0.78rem; color: var(--gray-400); }
+
+        /* Grade legend */
+        .grade-legend { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 16px; }
+        .legend-chip {
+            display: inline-flex; align-items: center; gap: 5px;
+            font-size: 0.75rem; font-weight: 600; padding: 5px 10px; border-radius: var(--r-full);
+        }
+        .legend-letter {
+            width: 18px; height: 18px; border-radius: 50%; color: #fff; font-size: 0.7rem; font-weight: 700;
+            display: inline-flex; align-items: center; justify-content: center;
+        }
+
+        /* ============ Search ============ */
+        .search-wrap { position: relative; max-width: 560px; margin: 18px auto 4px; }
+        .search-input {
+            width: 100%; padding: 13px 18px 13px 46px; border-radius: var(--r-full);
+            border: 1.5px solid var(--gray-200); background: #fff; font-size: 0.95rem;
+            box-shadow: var(--shadow-sm); transition: border-color 0.18s ease, box-shadow 0.18s ease;
+        }
+        .search-input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px var(--glow-blue); }
+        .search-icon {
+            position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+            color: var(--gray-400); display: flex;
+        }
+        .search-results {
+            position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 30;
+            background: #fff; border-radius: var(--r-md); box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-100); overflow: hidden;
+        }
+        .search-item {
+            display: flex; align-items: center; gap: 12px; padding: 10px 14px; width: 100%;
+            text-align: left; transition: background 0.15s ease;
+        }
+        .search-item:hover { background: var(--gray-50); }
+        .search-item-name { font-weight: 600; font-size: 0.9rem; color: var(--gray-800); flex: 1; }
+        .search-item-cat { font-size: 0.75rem; color: var(--gray-400); }
+        .search-empty { padding: 14px; text-align: center; color: var(--gray-400); font-size: 0.9rem; }
+
+        /* ============ Cards & grids ============ */
+        .section-title { font-size: 1.15rem; font-weight: 700; margin: 30px 0 16px; color: var(--gray-900); }
+        .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+        .sub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 16px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
+
+        .card {
+            background: #fff; border-radius: var(--r-lg); box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-100); overflow: hidden;
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+        .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+        /* Category card */
+        .cat-card { padding: 26px 22px; cursor: pointer; position: relative; min-height: 210px; display: flex; flex-direction: column; }
+        .cat-card .cat-icon {
+            width: 62px; height: 62px; border-radius: var(--r-md); color: #fff;
+            display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+        }
+        .cat-card h3 { font-size: 1.2rem; font-weight: 700; color: var(--gray-900); }
+        .cat-card p { color: var(--gray-500); font-size: 0.9rem; margin-top: 6px; flex: 1; }
+        .cat-arrow {
+            position: absolute; top: 24px; right: 22px; width: 36px; height: 36px; border-radius: 50%;
+            background: var(--gray-50); color: var(--gray-500); display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+        .cat-card:hover .cat-arrow { background: var(--gradient-app); color: #fff; transform: translateX(3px); }
+
+        /* Subcategory card */
+        .sub-card { padding: 22px 18px; cursor: pointer; display: flex; align-items: center; gap: 14px; }
+        .sub-card .sub-icon {
+            width: 52px; height: 52px; border-radius: var(--r-md); color: #fff;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .sub-card h4 { font-size: 1.02rem; font-weight: 700; color: var(--gray-900); }
+        .sub-card p { font-size: 0.8rem; color: var(--gray-500); margin-top: 2px; }
+        .sub-card .count { margin-left: auto; font-size: 0.78rem; color: var(--gray-400); font-weight: 600; }
+
+        /* Product card */
+        .product-card { display: flex; flex-direction: column; }
+        .p-thumb {
+            height: 150px; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, var(--gray-50), #fff);
+            position: relative; overflow: hidden;
+        }
+        .p-tile {
+            width: 64px; height: 64px; border-radius: var(--r-md); color: #fff; font-weight: 800; font-size: 1.5rem;
+            display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-md);
+        }
+        .p-body { padding: 16px 16px 18px; display: flex; flex-direction: column; flex: 1; }
+        .p-name { font-weight: 700; font-size: 1.02rem; color: var(--gray-900); }
+        .p-serving { font-size: 0.76rem; color: var(--gray-400); margin-top: 2px; }
+        .p-facts { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+        .p-fact {
+            background: var(--gray-50); border-radius: var(--r-sm); padding: 6px 10px;
+            font-size: 0.78rem; color: var(--gray-600); font-weight: 500;
+        }
+        .p-fact b { color: var(--gray-900); }
+        .p-card-row { display: flex; align-items: center; justify-content: space-between; margin-top: auto; gap: 8px; }
+        .p-actions { display: flex; gap: 8px; margin-top: 12px; }
+        .p-actions .btn { padding: 9px 14px; font-size: 0.85rem; flex: 1; }
+
+        /* Grade badge */
+        .grade-badge {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 46px; height: 46px; border-radius: var(--r-md); font-weight: 800; font-size: 1.35rem;
+        }
+        .grade-badge-lg { width: 66px; height: 66px; font-size: 1.9rem; border-radius: var(--r-lg); }
+        .grade-badge-sm { width: 34px; height: 34px; font-size: 1rem; border-radius: 10px; }
+        .grade-A { background: var(--grade-a-bg); color: var(--grade-a); }
+        .grade-B { background: var(--grade-b-bg); color: var(--grade-b); }
+        .grade-C { background: var(--grade-c-bg); color: var(--grade-c); }
+        .grade-D { background: var(--grade-d-bg); color: var(--grade-d); }
+        .grade-E { background: var(--grade-e-bg); color: var(--grade-e); }
+        .grade-label { font-size: 0.8rem; font-weight: 600; }
+
+        /* ============ Product detail ============ */
+        .detail-hero {
+            display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+            background: #fff; border: 1px solid var(--gray-100); border-radius: var(--r-xl);
+            padding: 26px; box-shadow: var(--shadow-md); margin-top: 18px;
+        }
+        .detail-hero .p-tile { width: 86px; height: 86px; font-size: 2rem; border-radius: var(--r-lg); }
+        .detail-hero-info { flex: 1; min-width: 220px; }
+        .detail-hero-info h1 { font-size: 1.5rem; font-weight: 800; color: var(--gray-900); letter-spacing: -0.4px; }
+        .detail-hero-info .p-serving { font-size: 0.85rem; margin-top: 4px; }
+        .grade-wrap { display: flex; align-items: center; gap: 12px; }
+
+        .panel {
+            background: #fff; border: 1px solid var(--gray-100); border-radius: var(--r-lg);
+            padding: 24px; box-shadow: var(--shadow-sm); margin-top: 18px;
+        }
+        .panel h3 { font-size: 1.05rem; font-weight: 700; color: var(--gray-900); margin-bottom: 16px; }
+
+        /* Nutrition bars */
+        .nutri-row { margin-bottom: 13px; }
+        .nutri-top { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 5px; }
+        .nutri-top .nutri-val { font-weight: 700; color: var(--gray-900); }
+        .nutri-track { height: 8px; background: var(--gray-100); border-radius: var(--r-full); overflow: hidden; }
+        .nutri-fill { height: 100%; border-radius: var(--r-full); transition: width 0.6s ease; }
+
+        /* Ingredient chips */
+        .chip-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+        .chip {
+            background: var(--gray-50); border: 1px solid var(--gray-100); color: var(--gray-600);
+            border-radius: var(--r-full); padding: 7px 14px; font-size: 0.85rem; font-weight: 500;
+        }
+        .chip-flag { background: var(--pink-light); border-color: #FBE1EE; color: var(--pink-dark); }
+        .chip-safe { background: var(--blue-light); border-color: #D6E4FF; color: var(--blue-dark); }
+
+        /* Safety analysis */
+        .safety-item { display: flex; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--gray-50); align-items: flex-start; }
+        .safety-item:last-child { border-bottom: none; }
+        .safety-dot {
+            width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; margin-top: 2px;
+        }
+        .ok { background: var(--blue-light); color: var(--blue); }
+        .warn { background: var(--pink-light); color: var(--pink-dark); }
+        .safety-body { flex: 1; }
+        .safety-body b { display: block; font-size: 0.92rem; color: var(--gray-800); }
+        .safety-body span { font-size: 0.85rem; color: var(--gray-500); }
+
+        /* Grade explanation */
+        .reason-item { display: flex; gap: 10px; padding: 8px 0; font-size: 0.92rem; color: var(--gray-600); align-items: flex-start; }
+        .reason-item .dot { margin-top: 7px; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .note-box {
+            background: var(--gray-50); border-radius: var(--r-md); padding: 14px 16px;
+            font-size: 0.82rem; color: var(--gray-500); margin-top: 18px;
+        }
+
+        /* ============ Scanner page ============ */
+        .scanner-wrap { position: relative; max-width: 460px; margin: 26px auto; }
+        .scan-frame {
+            aspect-ratio: 1; border-radius: var(--r-xl);
+            background: linear-gradient(160deg, #1E293B, #0F172A);
+            position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
+            box-shadow: var(--shadow-lg);
+        }
+        .scan-target { width: 62%; height: 62%; border-radius: 24px; position: relative; }
+        .scan-corner {
+            position: absolute; width: 26px; height: 26px; border: 3px solid var(--blue-mid);
+        }
+        .corner-tl { top: 0; left: 0; border-right: none; border-bottom: none; border-radius: 10px 0 0 0; }
+        .corner-tr { top: 0; right: 0; border-left: none; border-bottom: none; border-radius: 0 10px 0 0; }
+        .corner-bl { bottom: 0; left: 0; border-right: none; border-top: none; border-radius: 0 0 0 10px; }
+        .corner-br { bottom: 0; right: 0; border-left: none; border-top: none; border-radius: 0 0 10px 0; }
+        .scan-laser {
+            position: absolute; left: 6%; right: 6%; height: 3px;
+            background: var(--gradient-pink); border-radius: var(--r-full);
+            box-shadow: 0 0 14px var(--glow-pink);
+            animation: laserMove 1.9s ease-in-out infinite;
+        }
+        @keyframes laserMove { 0%, 100% { top: 12%; } 50% { top: 86%; } }
+        .scan-status { text-align: center; font-weight: 700; color: var(--gray-700); margin-top: 22px; font-size: 1.05rem; }
+        .scan-hint { text-align: center; color: var(--gray-400); font-size: 0.85rem; margin-top: 6px; }
+
+        /* Detected result */
+        .detected { text-align: center; margin-top: 22px; }
+        .detected .check-circle {
+            width: 66px; height: 66px; border-radius: 50%; margin: 0 auto 14px;
+            background: var(--gradient-blue); color: #fff; display: flex; align-items: center; justify-content: center;
+            box-shadow: var(--shadow-glow); animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+        @keyframes popIn { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .detected-title { font-size: 1.3rem; font-weight: 800; color: var(--gray-900); }
+        .detected-scan { display: flex; gap: 12px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+
+        /* ============ Profile ============ */
+        .profile-card {
+            display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+            background: #fff; border: 1px solid var(--gray-100); border-radius: var(--r-xl);
+            padding: 26px; box-shadow: var(--shadow-md); margin-top: 22px;
+        }
+        .profile-avatar {
+            width: 84px; height: 84px; border-radius: 50%;
+            background: var(--gradient-app); color: #fff; font-size: 2.2rem; font-weight: 800;
+            display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-md);
+        }
+        .profile-meta { flex: 1; min-width: 180px; }
+        .profile-meta h2 { font-size: 1.35rem; font-weight: 800; color: var(--gray-900); }
+        .profile-meta p { color: var(--gray-500); font-size: 0.92rem; }
+        .profile-stats { display: flex; gap: 28px; margin-top: 12px; }
+        .stat b { font-size: 1.25rem; color: var(--gray-900); display: block; }
+        .stat span { font-size: 0.75rem; color: var(--gray-400); }
+        .settings-row {
+            display: flex; align-items: center; gap: 14px; width: 100%; text-align: left;
+            padding: 15px 6px; border-bottom: 1px solid var(--gray-50); color: var(--gray-700);
+            font-weight: 500; font-size: 0.95rem; transition: padding 0.15s ease;
+        }
+        .settings-row:hover { padding-left: 10px; background: var(--gray-50); border-radius: var(--r-sm); }
+        .settings-row .ic { color: var(--blue); display: flex; }
+
+        /* ============ Bottom nav (mobile) ============ */
+        .bottom-nav {
+            position: fixed; left: 50%; transform: translateX(-50%); bottom: 0; z-index: 60;
+            width: 100%; max-width: 430px;
+            display: flex; justify-content: space-around; align-items: center;
+            background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(10px);
+            border-top: 1px solid var(--gray-100);
+            padding-bottom: env(safe-area-inset-bottom);
+            box-shadow: 0 -6px 20px rgba(15, 23, 42, 0.06);
+        }
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center; gap: 3px;
+            padding: 10px 14px; color: var(--gray-400); font-size: 0.7rem; font-weight: 600;
+            border-radius: var(--r-md); transition: color 0.15s ease;
+        }
+        .nav-item.active { color: var(--blue); }
+        .nav-item:hover { color: var(--blue); }
+        .nav-item .ic { display: flex; }
+        .nav-scan {
+            width: 52px; height: 52px; border-radius: 50%; margin-top: -26px;
+            background: var(--gradient-app); color: #fff; display: flex; align-items: center; justify-content: center;
+            box-shadow: var(--shadow-glow);
+        }
+        .nav-item:hover .nav-scan { transform: scale(1.05); }
+        .nav-item .nav-scan:hover { transform: scale(1.05); }
+        .nav-spacer { height: 78px; }
+
+        /* ============ Responsive ============ */
+        @media (max-width: 560px) {
+            .container { padding: 0 16px; }
+            .scan-hero { padding: 26px 20px; }
+            .scan-hero h2 { font-size: 1.55rem; }
+            .page-title { font-size: 1.35rem; }
+            .cat-card { min-height: 180px; }
+            .bottom-nav { display: flex; }
+            .profile-stats { gap: 18px; }
+        }
+        @media (min-width: 561px) {
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+        }
+    </style>
+    <!-- React + Babel from CDN (no build step needed) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
 </head>
 <body>
-    <!-- Splash Screen -->
-    <div id="splash-screen" class="splash-screen">
-        <div class="splash-content">
-            <div class="splash-logo">
-                <svg viewBox="0 0 120 120" class="logo-svg" xmlns="http://www.w3.org/2000/svg">
+    <div id="root"></div>
+
+    <!-- ============================================================
+         DATA — centralized sample dataset (demo values, not official)
+         ============================================================ -->
+    <script>
+        /* Product shortcut: keeps the dataset compact & easy to read.
+           All nutritional values are SAMPLE/DEMO numbers (per 100 g/ml)
+           and are NOT official government or brand data. */
+        function P(id, name, category, subcategory, cal, fat, sfat, carbs, sugar, prot, sodium, serving, ingredients, additives, colors, allergens, extra) {
+            return {
+                id: id,
+                name: name,
+                category: category,
+                subcategory: subcategory,
+                image: '', // put a real image URL here later — ProductImage will use it
+                calories: cal,
+                fat: fat,
+                saturatedFat: sfat,
+                carbohydrates: carbs,
+                sugar: sugar,
+                protein: prot,
+                sodium: sodium,
+                serving: serving,
+                ingredients: ingredients,
+                additives: additives || [],
+                artificialColors: colors || [],
+                allergens: allergens || [],
+                caffeine: (extra && extra.caffeine) ? extra.caffeine : 0,
+            };
+        }
+
+        var PRODUCTS = [
+            /* ---- Soft Drinks ---- */
+            P('sd1', 'Coca-Cola', 'beverages', 'soft-drinks', 42, 0, 0, 10.6, 10.6, 0, 3, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Caramel Colour', 'Phosphoric Acid', 'Caffeine', 'Natural Flavours'], ['Phosphoric Acid', 'Caffeine'], ['Caramel E150d'], []),
+            P('sd2', 'Pepsi', 'beverages', 'soft-drinks', 44, 0, 0, 11, 11, 0, 4, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Caramel Colour', 'Phosphoric Acid', 'Caffeine'], ['Phosphoric Acid', 'Caffeine'], ['Caramel E150d'], []),
+            P('sd3', 'Sprite', 'beverages', 'soft-drinks', 40, 0, 0, 9.5, 9.5, 0, 10, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Citric Acid', 'Natural Lemon & Lime Flavours', 'Sodium Citrate'], ['Citric Acid'], [], []),
+            P('sd4', 'Fanta', 'beverages', 'soft-drinks', 48, 0, 0, 11.6, 11.6, 0, 12, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Orange Juice Concentrate', 'Citric Acid', 'Preservatives'], ['Citric Acid', 'Sodium Benzoate'], ['Sunset Yellow E110', 'Allura Red E129'], []),
+            P('sd5', '7UP', 'beverages', 'soft-drinks', 40, 0, 0, 9.7, 9.7, 0, 20, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Citric Acid', 'Natural Flavours', 'Sodium Citrate'], ['Citric Acid'], [], []),
+
+            /* ---- Energy Drinks ---- */
+            P('en1', 'Tata Glucose', 'beverages', 'energy-drinks', 62, 0, 0, 15, 15, 0, 45, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Glucose', 'Citric Acid', 'Colour'], ['Citric Acid'], ['Sunset Yellow E110'], ['Not tested for children']),
+            P('en2', 'Gatorade', 'beverages', 'energy-drinks', 21, 0, 0, 5.5, 5.5, 0, 90, 'per 100 ml', ['Water', 'Sugar', 'Dextrose', 'Citric Acid', 'Salt', 'Potassium Citrate'], ['Citric Acid'], [], [], {caffeine: 0}),
+            P('en3', 'Sting', 'beverages', 'energy-drinks', 65, 0, 0, 15, 15, 0, 105, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Citric Acid', 'Caffeine', 'Colour', 'Preservatives'], ['Citric Acid', 'Sodium Benzoate', 'Caffeine'], ['Sunset Yellow E110'], ['Caffeine'], {caffeine: 32}),
+            P('en4', 'Red Bull', 'beverages', 'energy-drinks', 45, 0, 0, 11, 10.5, 0, 0, 'per 100 ml', ['Carbonated Water', 'Sucrose', 'Glucose', 'Citric Acid', 'Caffeine', 'Taurine', 'B Vitamins'], ['Citric Acid', 'Caffeine', 'Taurine'], ['Caramel'], ['Caffeine'], {caffeine: 32}),
+            P('en5', 'Monster', 'beverages', 'energy-drinks', 47, 0, 0, 11, 11, 0, 120, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Caffeine', 'L-Carnitine', 'B Vitamins', 'Colour'], ['Caffeine', 'L-Carnitine'], ['Caramel'], ['Caffeine'], {caffeine: 33}),
+
+            /* ---- Milkshakes ---- */
+            P('ms1', 'Keventers Milkshake', 'beverages', 'milkshakes', 120, 5, 3.2, 16, 13, 4, 60, 'per 100 ml', ['Milk', 'Sugar', 'Chocolate Powder', 'Emulsifiers', 'Stabilisers'], ['Emulsifiers', 'Stabilisers'], [], ['Milk']),
+            P('ms2', 'Milky Mist Milkshake', 'beverages', 'milkshakes', 115, 5.5, 3.5, 14, 12, 3.5, 70, 'per 100 ml', ['Milk', 'Sugar', 'Chocolate Syrup', 'Stabilisers'], ['Stabilisers'], [], ['Milk']),
+            P('ms3', 'Hershey\'s Milkshake', 'beverages', 'milkshakes', 130, 5, 3, 18, 14, 4, 80, 'per 100 ml', ['Milk', 'Sugar', 'Cocoa Solids', 'Emulsifiers'], ['Emulsifiers'], [], ['Milk', 'Soy']),
+            P('ms4', 'Strawberry Banana Smoothie', 'beverages', 'milkshakes', 85, 1.5, 0.8, 18, 12, 2, 25, 'per 100 ml', ['Water', 'Fruit Pulp', 'Sugar', 'Yogurt Culture', 'Pectin'], ['Pectin'], [], ['Milk']),
+
+            /* ---- Chips ---- */
+            P('ch1', 'Lay\'s Classic', 'solid', 'chips', 536, 34, 5.4, 53, 2.1, 7, 450, 'per 100 g', ['Potatoes', 'Vegetable Oil', 'Salt', 'Seasoning'], ['Seasoning Blend'], [], []),
+            P('ch2', 'Bingo Mad Angles', 'solid', 'chips', 520, 30, 4, 55, 4, 5, 480, 'per 100 g', ['Corn', 'Vegetable Oil', 'Salt', 'Spices', 'Flavour Enhancers'], ['Monosodium Glutamate'], [], ['Gluten']),
+            P('ch3', 'Kurkure', 'solid', 'chips', 530, 31, 4.5, 54, 5, 6, 520, 'per 100 g', ['Rice', 'Pulse Flour', 'Vegetable Oil', 'Spices', 'Flavour Enhancers'], ['Monosodium Glutamate'], ['Tartrazine E102'], ['Gluten']),
+            P('ch4', 'Too Yumm', 'solid', 'chips', 520, 30, 4, 55, 3, 6, 440, 'per 100 g', ['Potatoes', 'Palmolein Oil', 'Salt', 'Seasoning'], ['Flavour Enhancers'], [], []),
+            P('ch5', 'Uncle Chipps', 'solid', 'chips', 533, 33, 5, 52, 2, 7, 460, 'per 100 g', ['Potatoes', 'Vegetable Oil', 'Salt'], [], [], []),
+
+            /* ---- Biscuits ---- */
+            P('bi1', 'Milk Bikis', 'solid', 'biscuits', 460, 18, 6, 70, 25, 7, 300, 'per 100 g', ['Wheat Flour', 'Sugar', 'Palm Oil', 'Milk Solids', 'Leavening Agents'], ['Leavening Agents'], [], ['Gluten', 'Milk', 'Soy']),
+            P('bi2', 'Britannia Marie Gold', 'solid', 'biscuits', 443, 14, 6, 72, 20, 7, 340, 'per 100 g', ['Wheat Flour', 'Sugar', 'Palm Oil', 'Milk Solids', 'Salt'], ['Leavening Agents'], [], ['Gluten', 'Milk', 'Soy']),
+            P('bi3', 'Parle-G', 'solid', 'biscuits', 450, 16, 7, 70, 22, 6, 360, 'per 100 g', ['Wheat Flour', 'Sugar', 'Palm Oil', 'Milk Solids', 'Invert Syrup'], ['Leavening Agents'], [], ['Gluten', 'Milk', 'Soy']),
+            P('bi4', 'Good Day Pista', 'solid', 'biscuits', 500, 23, 9, 66, 27, 6, 280, 'per 100 g', ['Wheat Flour', 'Sugar', 'Palm Oil', 'Pista', 'Milk Solids', 'Salt'], ['Leavening Agents'], [], ['Gluten', 'Milk', 'Tree Nut']),
+            P('bi5', 'Hide & Seek', 'solid', 'biscuits', 490, 20, 8, 68, 30, 6, 290, 'per 100 g', ['Wheat Flour', 'Sugar', 'Palm Oil', 'Cocoa Solids', 'Milk Solids'], ['Emulsifier'], [], ['Gluten', 'Milk', 'Soy']),
+
+            /* ---- Chocolate ---- */
+            P('co1', 'Cadbury Dairy Milk', 'solid', 'chocolate', 535, 30, 18.5, 59, 56, 7.8, 80, 'per 100 g', ['Sugar', 'Milk Solids', 'Cocoa Butter', 'Cocoa Mass', 'Emulsifiers', 'Vanilla Extract'], ['Emulsifier (E476)'], [], ['Milk', 'Soy']),
+            P('co2', 'Hershey\'s Milk Chocolate', 'solid', 'chocolate', 530, 29, 17, 60, 54, 7, 85, 'per 100 g', ['Sugar', 'Milk', 'Cocoa Butter', 'Cocoa Mass', 'Soy Lecithin'], ['Soy Lecithin'], [], ['Milk', 'Soy']),
+            P('co3', 'Amul Dark Chocolate (55%)', 'solid', 'chocolate', 540, 33, 19, 52, 40, 7, 20, 'per 100 g', ['Cocoa Mass', 'Sugar', 'Cocoa Butter', 'Emulsifiers', 'Vanillin'], ['Emulsifier'], [], ['Milk', 'Soy']),
+            P('co4', '5 Star', 'solid', 'chocolate', 520, 27, 14, 63, 50, 6, 90, 'per 100 g', ['Sugar', 'Asiago Sugar', 'Milk Solids', 'Cocoa Butter', 'Cocoa Mass', 'Peanuts'], ['Emulsifier'], [], ['Milk', 'Peanut', 'Soy']),
+            P('co5', 'KitKat', 'solid', 'chocolate', 520, 28, 16, 60, 50, 7, 70, 'per 100 g', ['Sugar', 'Wheat Flour', 'Milk Solids', 'Cocoa Mass', 'Cocoa Butter', 'Palm Oil'], ['Emulsifier'], [], ['Gluten', 'Milk', 'Soy']),
+
+            /* ---- Milk solids / health drinks ---- */
+            P('gr1', 'Boost', 'grocery', 'milk-solids', 380, 4.5, 2.5, 65, 68, 14, 390, 'per 100 g (powder)', ['Barley Malt Extract', 'Milk Solids', 'Sugar', 'Cocoa Solids', 'B Vitamins'], ['Vitamins & Minerals blend'], [], ['Gluten', 'Milk']),
+            P('gr2', 'Horlicks', 'grocery', 'milk-solids', 393, 5, 2.8, 71, 57, 15, 410, 'per 100 g (powder)', ['Barley Malt Extract', 'Milk Solids', 'Sugar', 'Wheat Atta'], ['Vitamins & Minerals blend'], [], ['Gluten', 'Milk']),
+            P('gr3', 'Milo', 'grocery', 'milk-solids', 385, 4, 2, 66, 60, 12, 260, 'per 100 g (powder)', ['Barley Malt Extract', 'Milk Solids', 'Sugar', 'Cocoa Solids', 'Minerals'], ['Vitamins & Minerals blend'], [], ['Gluten', 'Milk']),
+            P('gr4', 'Complan', 'grocery', 'milk-solids', 400, 6, 3, 64, 55, 18, 430, 'per 100 g (powder)', ['Milk Solids', 'Sugar', 'Barley Malt Extracts', 'Vegetable Oils', 'Vitamins & Minerals'], ['Vitamins & Minerals blend'], [], ['Gluten', 'Milk']),
+
+            /* ---- Packed food ---- */
+            P('pf1', 'Maggi Noodles (Masala)', 'grocery', 'packed-food', 440, 16, 7, 66, 6, 9, 1500, 'per 100 g (dry)', ['Wheat Flour', 'Palm Oil', 'Salt', 'Onion', 'Spices', 'Flavour Enhancers'], ['Monosodium Glutamate', 'Sodium Bicarbonate'], [], ['Gluten', 'Soy']),
+            P('pf2', 'Ching\'s Instant Noodles', 'grocery', 'packed-food', 450, 17, 8, 66, 5, 8, 1450, 'per 100 g (dry)', ['Wheat Flour', 'Palm Oil', 'Salt', 'Chilli', 'Flavour Enhancers'], ['Monosodium Glutamate'], [], ['Gluten', 'Soy']),
+            P('pf3', 'Top Ramen Noodles', 'grocery', 'packed-food', 445, 16, 7, 67, 5, 9, 1480, 'per 100 g (dry)', ['Wheat Flour', 'Palm Oil', 'Salt', 'Vegetable Powder', 'Flavour Enhancers'], ['Monosodium Glutamate'], [], ['Gluten', 'Soy']),
+            P('pf4', 'Instant Pasta (Cheesy)', 'grocery', 'packed-food', 350, 4, 2, 60, 8, 12, 800, 'per 100 g (dry)', ['Durum Wheat', 'Cheese Powder', 'Salt', 'Milk Solids', 'Herbs'], [], [], ['Gluten', 'Milk']),
+
+            /* ---- Frozen & canned ---- */
+            P('fr1', 'Frozen Chicken', 'grocery', 'frozen', 220, 13, 4, 0, 0, 22, 250, 'per 100 g', ['Chicken', 'Water', 'Salt'], [], [], []),
+            P('fr2', 'Frozen Mixed Vegetables', 'grocery', 'frozen', 60, 0.5, 0.1, 12, 4, 3, 20, 'per 100 g', ['Peas', 'Carrots', 'Corn', 'Beans'], [], [], []),
+            P('fr3', 'Canned Chicken', 'grocery', 'frozen', 180, 8, 2.5, 2, 0, 24, 600, 'per 100 g', ['Chicken', 'Salt', 'Water', 'Preservatives'], ['Nitrite (E250)'], [], []),
+            P('fr4', 'Canned Tomatoes', 'grocery', 'frozen', 25, 0.2, 0, 4, 2.5, 1, 150, 'per 100 g', ['Tomatoes', 'Tomato Juice', 'Citric Acid'], ['Citric Acid'], [], []),
+            P('fr5', 'Tinned Fish (Sardines)', 'grocery', 'frozen', 200, 10, 2, 1, 0, 24, 500, 'per 100 g', ['Sardines', 'Vegetable Oil', 'Salt'], [], [], ['Fish'])
+        ];
+    </script>
+
+    <!-- ============================================================
+         GRADE ENGINE — simple prototype scoring (clearly non-medical)
+         ============================================================ -->
+    <script>
+        /* A simple, clearly-commented prototype scoring function.
+           Later this can be replaced with a real nutrition-scoring
+           algorithm (e.g. UK FSA "traffic light" front-of-pack model). */
+        function computeGrade(p) {
+            var score = 50;
+            var flags = [];
+
+            // Calories (per 100 g/ml)
+            if (p.calories <= 100) { score += 15; flags.push('low-calorie'); }
+            else if (p.calories <= 250) { score += 8; }
+            else if (p.calories > 400) { score -= 15; flags.push('high-calorie'); }
+
+            // Sugar
+            if (p.sugar <= 5) { score += 12; flags.push('low-sugar'); }
+            else if (p.sugar <= 12) { score += 5; }
+            else if (p.sugar <= 22.5) { score -= 8; flags.push('moderate-sugar'); }
+            else { score -= 18; flags.push('high-sugar'); }
+
+            // Fat
+            if (p.fat <= 3) { score += 8; flags.push('low-fat'); }
+            else if (p.fat <= 10) { score += 3; }
+            else { score -= 10; flags.push('high-fat'); }
+
+            // Protein (positive)
+            if (p.protein >= 15) { score += 10; flags.push('high-protein'); }
+            else if (p.protein >= 8) { score += 6; }
+            else if (p.protein >= 3) { score += 2; }
+
+            // Sodium
+            if (p.sodium <= 200) { score += 6; flags.push('low-sodium'); }
+            else if (p.sodium <= 600) { score += 2; }
+            else { score -= 8; flags.push('high-sodium'); }
+
+            // Additives & artificial colours reduce the score
+            var addCount = (p.additives ? p.additives.length : 0) + (p.artificialColors ? p.artificialColors.length : 0);
+            if (addCount > 0) { score -= addCount * 3; flags.push('additives'); }
+
+            score = Math.max(0, Math.min(100, score));
+
+            var letter = score >= 80 ? 'A' : score >= 65 ? 'B' : score >= 50 ? 'C' : score >= 35 ? 'D' : 'E';
+            var label = { A: 'Excellent choice', B: 'Good choice', C: 'Moderate', D: 'Limit consumption', E: 'Least healthy choice' }[letter];
+
+            return { score: score, letter: letter, label: label, flags: flags };
+        }
+
+        /* Where nutritional profile is grade-based */
+        function gradeStyle(letter) {
+            return { 'A': 'grade-A', 'B': 'grade-B', 'C': 'grade-C', 'D': 'grade-D', 'E': 'grade-E' }[letter] || 'grade-E';
+        }
+        function gradeColor(letter) {
+            return { 'A': '#2B6FFF', 'B': '#1E9FE8', 'C': '#D2539A', 'D': '#E45A6B', 'E': '#8A95A8' }[letter] || '#8A95A8';
+        }
+
+        /* Helpers to walk the dataset */
+        function getProduct(id) {
+            for (var i = 0; i < PRODUCTS.length; i++) { if (PRODUCTS[i].id === id) return PRODUCTS[i]; }
+            return null;
+        }
+        function getBySubcategory(sub) {
+            return PRODUCTS.filter(function (p) { return p.subcategory === sub; });
+        }
+        function searchProducts(q) {
+            q = (q || '').trim().toLowerCase();
+            if (!q) return [];
+            return PRODUCTS.filter(function (p) {
+                return p.name.toLowerCase().indexOf(q) > -1 ||
+                       p.category.toLowerCase().indexOf(q) > -1 ||
+                       p.subcategory.toLowerCase().indexOf(q) > -1 ||
+                       p.ingredients.some(function (i) { return i.toLowerCase().indexOf(q) > -1; });
+            });
+        }
+
+        /* Categories navigation structure */
+        var CATEGORIES = [
+            { id: 'beverages', name: 'Beverages', desc: 'Soft drinks, energy drinks & milkshakes', icon: 'can', subs: [
+                { id: 'soft-drinks', name: 'Soft Drinks', desc: 'Fizzy carbonated drinks', count: 5 },
+                { id: 'energy-drinks', name: 'Energy Drinks', desc: 'Refresh with caffeine & glucose', count: 5 },
+                { id: 'milkshakes', name: 'Milkshakes', desc: 'Thick, creamy milk-based shakes', count: 4 }
+            ] },
+            { id: 'solid', name: 'Solid Items', desc: 'Chips, biscuits & chocolate', icon: 'cookie', subs: [
+                { id: 'chips', name: 'Chips', desc: 'Crunchy packaged snacks', count: 5 },
+                { id: 'biscuits', name: 'Biscuits', desc: 'Baked sweet & savoury treats', count: 5 },
+                { id: 'chocolate', name: 'Chocolate', desc: 'Milk, dark & filled bars', count: 5 }
+            ] },
+            { id: 'grocery', name: 'Grocery', desc: 'Health mixes, packed meals & canned', icon: 'bag', subs: [
+                { id: 'milk-solids', name: 'Milk Solids & Health Drinks', desc: 'Malt-based health drink mixes', count: 4 },
+                { id: 'packed-food', name: 'Packed Food', desc: 'Instant noodles & ready meals', count: 4 },
+                { id: 'frozen', name: 'Frozen & Canned Items', desc: 'Frozen and tinned essentials', count: 5 }
+            ] }
+        ];
+        function getCategory(id) {
+            for (var i = 0; i < CATEGORIES.length; i++) { if (CATEGORIES[i].id === id) return CATEGORIES[i]; }
+            return null;
+        }
+        function getSubcategory(subId) {
+            for (var c = 0; c < CATEGORIES.length; c++) {
+                var subs = CATEGORIES[c].subs;
+                for (var i = 0; i < subs.length; i++) { if (subs[i].id === subId) return subs[i]; }
+            }
+            return null;
+        }
+        /* Food photos via LoremFlickr (demo, no API key). Per-id tag wins,
+           otherwise the subcategory tag; replace these with your own image URLs later. */
+        var IMAGE_TAG_BY_ID = {
+            sd1: 'coca-cola', sd2: 'pepsi', sd3: 'sprite', sd4: 'fanta', sd5: 'lemon-soda',
+            en2: 'gatorade', en4: 'redbull', en5: 'energy-drink',
+            ms4: 'strawberry-smoothie', ms3: 'chocolate-milkshake',
+            ch5: 'potato-chips', bi1: 'biscuits', bi3: 'biscuits', bi5: 'cookies',
+            co1: 'milk-chocolate', co2: 'chocolate-almonds', co3: 'dark-chocolate', co5: 'chocolate-bar',
+            gr1: 'malted-milk', gr3: 'cocoa',
+            pf1: 'instant-noodles', pf2: 'noodles', pf3: 'noodles', pf4: 'pasta',
+            fr1: 'chicken', fr2: 'mixed-vegetables', fr3: 'canned-chicken', fr4: 'tomatoes', fr5: 'sardines'
+        };
+        var IMAGE_TAG_BY_SUB = {
+            'soft-drinks': 'soda', 'energy-drinks': 'energy-drink', 'milkshakes': 'milkshake',
+            'chips': 'potato-chips', 'biscuits': 'biscuits', 'chocolate': 'chocolate',
+            'milk-solids': 'milk', 'packed-food': 'noodles', 'frozen': 'frozen-food'
+        };
+        var IMAGE_MAP = {};
+        PRODUCTS.forEach(function (p) {
+            var tag = IMAGE_TAG_BY_ID[p.id] || IMAGE_TAG_BY_SUB[p.subcategory] || 'food';
+            IMAGE_MAP[p.id] = 'https://loremflickr.com/480/480/' + tag;
+        });
+    </script>
+
+    <!-- ============================================================
+         ICONS — reusable inline SVGs, stroke-based & minimal
+         ============================================================ -->
+    <script type="text/babel" data-presets="react">
+        function Icx({ d, size = 22, color = 'currentColor', fill = false, children }) {
+            return (
+                <svg width={size} height={size} viewBox="0 0 24 24"
+                     fill={fill ? color : 'none'} stroke={fill ? 'none' : color}
+                     strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    {children || <path d={d} />}
+                </svg>
+            );
+        }
+
+        const IcCamera  = (p) => <Icx {...p} d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />;
+        const IcCamera2 = (p) => <Icx {...p} d="M3 9a1 1 0 0 1 1-1h1l3 3h8l3-3h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" />;
+        const IcUpload  = (p) => <Icx {...p} d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />;
+        const IcBack    = (p) => <Icx {...p} d="M19 12H5M12 19l-7-7 7-7" />;
+        const IcChevron = (p) => <Icx {...p} d="M9 18l6-6-6-6" />;
+        const IcSearch  = (p) => <Icx {...p}><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.3-4.3" /></Icx>;
+        const IcHome    = (p) => <Icx {...p} d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />;
+        const IcScan    = (p) => <Icx {...p} d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10" />;
+        const IcGrid    = (p) => <Icx {...p}><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /></Icx>;
+        const IcUser    = (p) => <Icx {...p}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></Icx>;
+        const IcCheck   = (p) => <Icx {...p} d="M20 6L9 17l-5-5" />;
+        const IcShield  = (p) => <Icx {...p} d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />;
+        const IcBolt    = (p) => <Icx {...p} d="M13 2L3 14h9l-1 8 10-12h-9z" />;
+        const IcCan     = (p) => <Icx {...p}><path d="M17 8H7v6a2 2 0 0 0 1 1.7l3 2V23M7 6V2h10v4" /></Icx>;
+        const IcCup     = (p) => <Icx {...p}><path d="M4 18h16M8 18a4 4 0 0 1 8 0zM6 10a6 6 0 0 1 12 0" /><path d="M6 10h12v3a3 3 0 0 1-6 0" /></Icx>;
+        const IcChips   = (p) => <Icx {...p}><rect x="4" y="4" width="16" height="16" rx="3" /><path d="M8 8h8M8 12h8M8 16h5" /></Icx>;
+        const IcCookie  = (p) => <Icx {...p}><circle cx="12" cy="12" r="9" /><circle cx="9" cy="9" r="1.3" fill={p.color} stroke="none" /><circle cx="15" cy="11" r="1.3" fill={p.color} stroke="none" /><circle cx="10" cy="15" r="1.3" fill={p.color} stroke="none" /></Icx>;
+        const IcBag     = (p) => <Icx {...p}><path d="M6 2l-2 5v13a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7l-2-5z" /><path d="M2 7h20M9 11a3 3 0 0 0 6 0" /></Icx>;
+        const IcSettings= (p) => <Icx {...p}><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3h0a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5h0a1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9v0a1.7 1.7 0 0 0 1.5 1h.1a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" /></Icx>;
+        const IcBell    = (p) => <Icx {...p}><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0" /></Icx>;
+        const IcLogout  = (p) => <Icx {...p}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" /></Icx>;
+        const IcArrow   = (p) => <Icx {...p} d="M5 12h14M12 5l7 7-7 7" />;
+
+        /* ===== Brand Logo ===== */
+        function Logo({ size = 56 }) {
+            return (
+                <svg width={size} height={size} viewBox="0 0 64 64">
                     <defs>
-                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#0066FF"/>
-                            <stop offset="100%" style="stop-color:#00C2A8"/>
+                        <linearGradient id="lg-bg" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stopColor="#2B6FFF" />
+                            <stop offset="0.5" stopColor="#4D9FFF" />
+                            <stop offset="1" stopColor="#F472B6" />
                         </linearGradient>
-                        <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#0066FF"/>
-                            <stop offset="100%" style="stop-color:#00A896"/>
+                        <linearGradient id="lg-pink" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stopColor="#F472B6" />
+                            <stop offset="1" stopColor="#FB9BC0" />
                         </linearGradient>
                     </defs>
-                    <!-- Shield shape -->
-                    <path d="M60 8 L100 28 L100 60 Q100 95 60 112 Q20 95 20 60 L20 28 Z" 
-                          fill="url(#shieldGradient)" opacity="0.15"/>
-                    <path d="M60 12 L96 30 L96 60 Q96 92 60 108 Q24 92 24 60 L24 30 Z" 
-                          fill="none" stroke="url(#logoGradient)" stroke-width="2.5"/>
-                    <!-- Barcode lines -->
-                    <rect x="38" y="35" width="3" height="35" rx="1" fill="url(#logoGradient)" opacity="0.8"/>
-                    <rect x="44" y="40" width="2" height="30" rx="1" fill="url(#logoGradient)" opacity="0.6"/>
-                    <rect x="49" y="35" width="4" height="35" rx="1" fill="url(#logoGradient)" opacity="0.9"/>
-                    <rect x="56" y="42" width="2" height="28" rx="1" fill="url(#logoGradient)" opacity="0.7"/>
-                    <rect x="61" y="35" width="3" height="35" rx="1" fill="url(#logoGradient)" opacity="0.85"/>
-                    <rect x="67" y="38" width="2" height="32" rx="1" fill="url(#logoGradient)" opacity="0.65"/>
-                    <rect x="72" y="35" width="4" height="35" rx="1" fill="url(#logoGradient)" opacity="0.75"/>
-                    <rect x="79" y="40" width="2" height="30" rx="1" fill="url(#logoGradient)" opacity="0.55"/>
-                    <!-- Scan line -->
-                    <line x1="32" y1="52" x2="88" y2="52" stroke="#00C2A8" stroke-width="1.5" opacity="0.8" class="scan-line"/>
-                    <!-- Checkmark -->
-                    <path d="M42 75 L52 85 L72 65" fill="none" stroke="url(#logoGradient)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    {/* Rounded tile */}
+                    <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#lg-bg)" />
+                    {/* Food packet */}
+                    <rect x="16" y="18" width="32" height="30" rx="5" fill="#fff" />
+                    <rect x="16" y="18" width="32" height="7" rx="4" fill="#F1F4F9" />
+                    {/* Barcode on packet */}
+                    <rect x="20" y="29" width="3" height="12" rx="1" fill="#2B6FFF" opacity="0.85" />
+                    <rect x="26" y="31" width="2" height="10" rx="1" fill="#2B6FFF" opacity="0.7" />
+                    <rect x="31" y="29" width="3" height="12" rx="1" fill="#2B6FFF" opacity="0.9" />
+                    <rect x="37" y="30" width="2" height="11" rx="1" fill="#2B6FFF" opacity="0.6" />
+                    <rect x="42" y="29" width="3" height="12" rx="1" fill="#2B6FFF" opacity="0.8" />
+                    {/* Scan line */}
+                    <rect x="18" y="25" width="28" height="2.4" rx="1.2" fill="url(#lg-pink)" opacity="0.9" />
+                    {/* Shield + check badge (top-right) */}
+                    <path d="M47 8a5 5 0 0 1 9 0v5l-4.5 9-4.5-9z" fill="url(#lg-pink)" />
+                    <path d="M50 11l1.8 1.8L54.5 10" stroke="#fff" strokeWidth="2" strokeLinecap="round" fill="none" />
                 </svg>
-            </div>
-            <h1 class="splash-title">LabelCheck</h1>
-            <p class="splash-tagline">Scan. Verify. Trust.</p>
-        </div>
-        <div class="splash-loader">
-            <div class="loader-bar"></div>
-        </div>
-    </div>
+            );
+        }
+    </script>
 
-    <!-- Main App Container -->
-    <div id="app" class="app-container hidden">
-        <!-- Top App Bar -->
-        <header class="top-bar">
-            <div class="top-bar-left">
-                <svg viewBox="0 0 40 40" class="top-bar-logo" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="miniLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#0066FF"/>
-                            <stop offset="100%" style="stop-color:#00C2A8"/>
-                        </linearGradient>
-                    </defs>
-                    <rect x="4" y="4" width="32" height="32" rx="8" fill="url(#miniLogoGradient)"/>
-                    <rect x="12" y="12" width="2" height="14" rx="1" fill="white" opacity="0.9"/>
-                    <rect x="16" y="14" width="1.5" height="12" rx="0.75" fill="white" opacity="0.7"/>
-                    <rect x="20" y="12" width="2.5" height="14" rx="1" fill="white" opacity="0.85"/>
-                    <rect x="24" y="13" width="1.5" height="13" rx="0.75" fill="white" opacity="0.75"/>
-                    <path d="M12 30 L16 34 L26 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span class="app-name">LabelCheck</span>
-            </div>
-            <div class="top-bar-right">
-                <button class="lang-btn">EN</button>
-            </div>
-        </header>
+    <!-- ============================================================
+         COMPONENTS — small reusable building blocks
+         ============================================================ -->
+    <script type="text/babel" data-presets="react">
+        /* ---------- Routing helpers (hash-based, no libs needed) ---------- */
+        function Router() {
+            var route = { name: 'home', params: {} };
+            var hash = window.location.hash.replace(/^#\/?/, '');
+            var parts = hash.split('/').filter(Boolean);
+            if (parts.length === 0) { route.name = 'home'; }
+            else if (parts[0] === 'profile') { route.name = 'profile'; }
+            else if (parts[0] === 'categories') { route.name = 'categories'; }
+            else if (parts[0] === 'category' && parts[1]) { route.name = 'category'; route.params.id = parts[1]; }
+            else if (parts[0] === 'list' && parts[1]) { route.name = 'list'; route.params.id = parts[1]; }
+            else if (parts[0] === 'product' && parts[1]) { route.name = 'product'; route.params.id = parts[1]; }
+            else if (parts[0] === 'scan') { route.name = 'scan'; route.params.variant = parts[1] || null; }
+            return route;
+        }
+        function go(path) { window.location.hash = '#' + path; }
+        function goBack() { if (window.history.length > 1) window.history.back(); else go('/'); }
 
-        <!-- Main Content Area -->
-        <main class="main-content">
-            <!-- Hero Scan Section -->
-            <section class="hero-section">
-                <div class="scan-cta-container">
-                    <button class="scan-cta" id="scanButton">
-                        <div class="scan-cta-inner">
-                            <svg class="scan-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M3 7V5a2 2 0 012-2h2"/>
-                                <path d="M17 3h2a2 2 0 012 2v2"/>
-                                <path d="M21 17v2a2 2 0 01-2 2h-2"/>
-                                <path d="M7 21H5a2 2 0 01-2-2v-2"/>
-                                <path d="M7 12h10"/>
-                            </svg>
-                            <div class="scan-text">
-                                <span class="scan-main">Scan Product Label</span>
-                                <span class="scan-sub">Point camera at barcode or ingredients</span>
-                            </div>
-                            <div class="scan-pulse"></div>
-                        </div>
-                    </button>
+        /* ---------- Product image (real photo if IMAGE_MAP has a URL, else gradient tile) ---------- */
+        function ProductImage({ product, size = 64, fontSize = 1.5, round = 14, cover = false }) {
+            const [broken, setBroken] = React.useState(false);
+            const url = IMAGE_MAP[product.id];
+            if (url && !broken) {
+                const style = cover
+                    ? { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: round }
+                    : { width: size * 2.4, height: size * 1.4, objectFit: 'cover', borderRadius: round };
+                return <img key={product.id} src={url} alt={product.name} style={style} onError={() => setBroken(true)} />;
+            }
+            const grad = { beverages: 'linear-gradient(135deg,#2B6FFF,#4D9FFF)', solid: 'linear-gradient(135deg,#F472B6,#FB9BC0)', grocery: 'linear-gradient(135deg,#6E7BF0,#4D9FFF)' };
+            return (
+                <div
+                    className="p-tile"
+                    style={{ background: grad[product.category] || grad.beverages, fontSize: fontSize + 'rem', width: size, height: size }}
+                >
+                    {product.name.charAt(0).toUpperCase()}
                 </div>
-            </section>
+            );
+        }
 
-            <!-- Quick Access Cards -->
-            <section class="quick-cards">
-                <div class="quick-cards-scroll">
-                    <button class="quick-card" data-page="recent">
-                        <div class="quick-card-icon" style="background: linear-gradient(135deg, #0066FF 0%, #0052CC 100%);">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polyline points="12,6 12,12 16,14"/>
-                            </svg>
-                        </div>
-                        <span class="quick-card-label">Recent Scans</span>
-                    </button>
-                    <button class="quick-card" data-page="violations">
-                        <div class="quick-card-icon" style="background: linear-gradient(135deg, #FF6B35 0%, #E85D26 100%);">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-                                <line x1="12" y1="9" x2="12" y2="13"/>
-                                <line x1="12" y1="17" x2="12.01" y2="17"/>
-                            </svg>
-                        </div>
-                        <span class="quick-card-label">Common Violations</span>
-                    </button>
-                    <button class="quick-card" data-page="report">
-                        <div class="quick-card-icon" style="background: linear-gradient(135deg, #00C2A8 0%, #00A896 100%);">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-                                <polyline points="14,2 14,8 20,8"/>
-                                <line x1="16" y1="13" x2="8" y2="13"/>
-                                <line x1="16" y1="17" x2="8" y2="17"/>
-                                <polyline points="10,9 9,9 8,9"/>
-                            </svg>
-                        </div>
-                        <span class="quick-card-label">Report a Product</span>
-                    </button>
-                    <button class="quick-card" data-page="rights">
-                        <div class="quick-card-icon" style="background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
-                                <line x1="12" y1="17" x2="12.01" y2="17"/>
-                            </svg>
-                        </div>
-                        <span class="quick-card-label">Know Your Rights</span>
-                    </button>
-                </div>
-            </section>
-
-            <!-- Recent Scans Feed -->
-            <section class="feed-section">
-                <div class="section-header">
-                    <h2>Recently Scanned</h2>
-                    <button class="see-all-btn">See All</button>
-                </div>
-                <div class="feed-list" id="feedList">
-                    <!-- Feed items will be inserted by JS -->
-                </div>
-            </section>
-        </main>
-
-        <!-- Bottom Navigation -->
-        <nav class="bottom-nav">
-            <button class="nav-item active" data-tab="home">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-                    <polyline points="9,22 9,12 15,12 15,22"/>
-                </svg>
-                <span>Home</span>
-            </button>
-            <button class="nav-item scan-nav" data-tab="scan">
-                <div class="scan-nav-btn">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                        <path d="M3 7V5a2 2 0 012-2h2"/>
-                        <path d="M17 3h2a2 2 0 012 2v2"/>
-                        <path d="M21 17v2a2 2 0 01-2 2h-2"/>
-                        <path d="M7 21H5a2 2 0 01-2-2v-2"/>
-                        <path d="M7 12h10"/>
-                    </svg>
-                </div>
-                <span>Scan</span>
-            </button>
-            <button class="nav-item" data-tab="history">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"/>
-                    <polyline points="12,6 12,12 16,14"/>
-                </svg>
-                <span>History</span>
-            </button>
-        </nav>
-    </div>
-
-    <!-- Scan Modal -->
-    <div id="scanModal" class="modal hidden">
-        <div class="modal-overlay"></div>
-        <div class="modal-content scan-modal-content">
-            <div class="modal-header">
-                <h2>Scan Label</h2>
-                <button class="modal-close" id="closeScanModal">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"/>
-                        <line x1="6" y1="6" x2="18" y2="18"/>
-                    </svg>
-                </button>
-            </div>
-            <div class="camera-view">
-                <div class="camera-placeholder">
-                    <div class="scan-frame">
-                        <div class="scan-corner top-left"></div>
-                        <div class="scan-corner top-right"></div>
-                        <div class="scan-corner bottom-left"></div>
-                        <div class="scan-corner bottom-right"></div>
-                        <div class="scan-laser"></div>
+        /* ---------- Grade badge ---------- */
+        function GradeBadge({ product, size = '' }) {
+            const grade = computeGrade(product);
+            return (
+                <div className="grade-wrap">
+                    <div className={`grade-badge ${size} ${gradeStyle(grade.letter)}`}>{grade.letter}</div>
+                    <div>
+                        <div className="grade-label" style={{ color: gradeColor(grade.letter) }}>{grade.label}</div>
+                        <div style={{ fontSize: 11, color: 'var(--gray-400)', marginTop: 1 }}>Prototype rating</div>
                     </div>
-                    <p class="scan-instruction">Align barcode within the frame</p>
                 </div>
-            </div>
-            <div class="scan-actions">
-                <button class="scan-action-btn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                        <circle cx="8.5" cy="8.5" r="1.5"/>
-                        <polyline points="21,15 16,10 5,21"/>
-                    </svg>
-                    <span>Gallery</span>
-                </button>
-                <button class="scan-action-btn primary">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
-                        <circle cx="12" cy="13" r="4"/>
-                    </svg>
-                    <span>Capture</span>
-                </button>
-                <button class="scan-action-btn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/>
-                    </svg>
-                    <span>Flash</span>
-                </button>
-            </div>
-        </div>
-    </div>
+            );
+        }
+        function GradeChip({ letter }) {
+            return <span className={`legend-letter ${gradeStyle(letter)}`}>{letter}</span>;
+        }
 
-    <!-- Product Detail Modal -->
-    <div id="productModal" class="modal hidden">
-        <div class="modal-overlay"></div>
-        <div class="modal-content product-modal-content">
-            <div class="modal-header">
-                <button class="modal-back" id="closeProductModal">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="19" y1="12" x2="5" y2="12"/>
-                        <polyline points="12,19 5,12 12,5"/>
-                    </svg>
-                </button>
-                <h2 id="productModalTitle">Product Details</h2>
-                <button class="modal-share">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="18" cy="5" r="3"/>
-                        <circle cx="6" cy="12" r="3"/>
-                        <circle cx="18" cy="19" r="3"/>
-                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-                    </svg>
-                </button>
-            </div>
-            <div class="product-detail-body" id="productDetailBody">
-                <!-- Product details inserted by JS -->
-            </div>
-        </div>
-    </div>
+        /* ---------- Header ---------- */
+        function Header({ onProfile }) {
+            return (
+                <header className="header">
+                    <div className="container header-inner">
+                        <div className="header-title"><Logo size={40} /><span className="header-name">LabelCheck</span></div>
+                        <button className="profile-btn" onClick={onProfile} aria-label="Profile">A</button>
+                    </div>
+                    <div className="header-divider" />
+                </header>
+            );
+        }
 
-    <script src="js/app.js"></script>
+        /* ---------- Search bar with live dropdown results ---------- */
+        function SearchBar({ placeholder = 'Search food or beverage...', scope = null, onPick }) {
+            const [q, setQ] = React.useState('');
+            const [focused, setFocused] = React.useState(false);
+            const all = !scope ? PRODUCTS
+                : (Array.isArray(scope) ? PRODUCTS.filter((p) => scope.indexOf(p.subcategory) > -1) : getBySubcategory(scope));
+            const results = all.filter(function (p) {
+                return q && (p.name.toLowerCase().indexOf(q) > -1 ||
+                    p.ingredients.join(' ').toLowerCase().indexOf(q) > -1);
+            }).slice(0, 6);
+
+            return (
+                <div className="search-wrap">
+                    <span className="search-icon"><IcSearch size={18} /></span>
+                    <input
+                        className="search-input"
+                        placeholder={placeholder}
+                        value={q}
+                        onChange={(e) => setQ(e.target.value)}
+                        onFocus={() => setFocused(true)}
+                        onBlur={() => setTimeout(() => setFocused(false), 150)}
+                    />
+                    {focused && q && (
+                        <div className="search-results">
+                            {results.length === 0 && <div className="search-empty">No matches found</div>}
+                            {results.map((p) => (
+                                <button key={p.id} className="search-item" onMouseDown={() => { if (onPick) onPick(p); go('/product/' + p.id); }}>
+                                    <ProductImage product={p} size={38} fontSize={1} round={10} />
+                                    <span className="search-item-name">{p.name}</span>
+                                    <span className="search-item-cat">{p.subcategory.split('-').join(' ')}</span>
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        /* ---------- Category card (Beverages / Solid / Grocery) ---------- */
+        const CAT_ICONS = { can: IcCan, cookie: IcCookie, bag: IcBag };
+        const CAT_GRADS = {
+            beverages: 'linear-gradient(135deg,#2B6FFF,#4D9FFF)',
+            solid: 'linear-gradient(135deg,#F472B6,#FB9BC0)',
+            grocery: 'linear-gradient(135deg,#6E5BD1,#4D9FFF)'
+        };
+        function CategoryCard({ cat }) {
+            const Icon = CAT_ICONS[cat.icon] || IcBag;
+            return (
+                <button className="card cat-card" onClick={() => go('/category/' + cat.id)}>
+                    <span className="cat-arrow"><IcArrow size={16} /></span>
+                    <div className="cat-icon" style={{ background: CAT_GRADS[cat.id] }}><Icon size={30} color="#fff" /></div>
+                    <h3>{cat.name}</h3>
+                    <p>{cat.desc}</p>
+                </button>
+            );
+        }
+
+        /* ---------- Subcategory card ---------- */
+        const SUB_ICONS = {
+            'soft-drinks': IcCan, 'energy-drinks': IcBolt, 'milkshakes': IcCup,
+            chips: IcChips, biscuits: IcCookie, chocolate: IcBolt,
+            'milk-solids': IcCup, 'packed-food': IcBag, frozen: IcChips
+        };
+        function SubcategoryCard({ sub, catId }) {
+            const Icon = SUB_ICONS[sub.id] || IcBag;
+            return (
+                <button className="card sub-card" onClick={() => go('/list/' + sub.id)}>
+                    <div className="sub-icon" style={{ background: CAT_GRADS[catId] || 'var(--gradient-app)' }}><Icon size={24} color="#fff" /></div>
+                    <div>
+                        <h4>{sub.name}</h4>
+                        <p>{sub.desc}</p>
+                    </div>
+                    <span className="count">{sub.count}</span>
+                </button>
+            );
+        }
+
+        /* ---------- Product card (with View Details + Scan Variant) ---------- */
+        function ProductCard({ p }) {
+            const grade = computeGrade(p);
+            return (
+                <div className="card product-card">
+                    <div className="p-thumb">
+                        <ProductImage product={p} size={64} cover />
+                    </div>
+                    <div className="p-body">
+                        <div className="p-card-row">
+                            <div>
+                                <div className="p-name">{p.name}</div>
+                                <div className="p-serving">{p.serving}</div>
+                            </div>
+                            <div className={`grade-badge grade-badge-sm ${gradeStyle(grade.letter)}`} title={grade.label}>{grade.letter}</div>
+                        </div>
+                        <div className="p-facts">
+                            <span className="p-fact">Energy <b>{p.calories} kcal</b></span>
+                            <span className="p-fact">Sugar <b>{p.sugar}g</b></span>
+                            <span className="p-fact">Fat <b>{p.fat}g</b></span>
+                        </div>
+                        <div className="p-actions">
+                            <button className="btn btn-primary" onClick={() => go('/product/' + p.id)}>View Details</button>
+                            <button className="btn btn-outline" onClick={() => go('/scan/' + p.id)}>Scan Variant</button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+    </script>
+
+    <!-- ============================================================
+         PAGES
+         ============================================================ -->
+    <script type="text/babel" data-presets="react">
+
+        /* ---------- Splash ---------- */
+        function Splash() {
+            return (
+                <div className="splash">
+                    <div className="splash-logo"><Logo size={120} /></div>
+                    <div className="splash-tagline">Scan • Eat • Safe</div>
+                </div>
+            );
+        }
+
+        /* ---------- Home ---------- */
+        function HomePage() {
+            return (
+                <div className="container page">
+                    
+
+                    <section className="scan-hero">
+                        <div className="scan-hero-inner">
+                            <div className="scan-icon-badge"><IcScan size={34} /></div>
+                            <h2>Scan Your Food</h2>
+                            <p>Scan a food packet to discover its nutrition and food-safety information.</p>
+                            <div className="scan-actions">
+                                <button className="btn btn-primary" onClick={() => go('/scan')}><IcScan size={18} /> Scan Product</button>
+                                <button className="btn btn-pink" onClick={() => go('/scan')}><IcUpload size={18} /> Upload Image</button>
+                            </div>
+                            <div className="grade-legend">
+                                <span className="legend-chip grade-A"><GradeChip letter="A" /> Excellent</span>
+                                <span className="legend-chip grade-B"><GradeChip letter="B" /> Good</span>
+                                <span className="legend-chip grade-C"><GradeChip letter="C" /> Moderate</span>
+                                <span className="legend-chip grade-D"><GradeChip letter="D" /> Limit</span>
+                                <span className="legend-chip grade-E"><GradeChip letter="E" /> Avoid</span>
+                            </div>
+                            <div className="demo-note">Prototype uses sample data — grades are illustrative, not medical advice.</div>
+                        </div>
+                    </section>
+
+                    <SearchBar onPick={() => {}} />
+
+                    <h2 className="section-title">Browse Categories</h2>
+                    <div className="cat-grid">
+                        {CATEGORIES.map((c) => <CategoryCard key={c.id} cat={c} />)}
+                    </div>
+                </div>
+            );
+        }
+
+        /* ---------- Categories tab page ---------- */
+        function CategoriesPage() {
+            return (
+                <div className="container page">
+                    
+                    <div className="page-head"><h1 className="page-title">Categories</h1></div>
+                    <p className="page-sub">Explore food products by category.</p>
+                    <SearchBar onPick={() => {}} />
+                    <div className="cat-grid">
+                        {CATEGORIES.map((c) => <CategoryCard key={c.id} cat={c} />)}
+                    </div>
+                </div>
+            );
+        }
+
+        /* ---------- Category landing (3 subcategories) ---------- */
+        function CategoryPage({ id }) {
+            const cat = getCategory(id);
+            if (!cat) return <div className="container page"><button className="btn btn-soft" onClick={goBack}>← Back</button><p>Category not found.</p></div>;
+            return (
+                <div className="container page">
+                    
+                    <div style={{ marginTop: 34 }}>
+                        <button className="back-btn" onClick={goBack}><IcBack size={18} /> Back</button>
+                    </div>
+                    <div className="page-head"><h1 className="page-title">{cat.name}</h1></div>
+                    <p className="page-sub">{cat.desc}</p>
+                    <SearchBar scope={cat.subs.map((s) => s.id)} onPick={() => {}} />
+                    <div className="sub-grid">
+                        {cat.subs.map((s) => <SubcategoryCard key={s.id} sub={s} catId={cat.id} />)}
+                    </div>
+                </div>
+            );
+        }
+
+        /* ---------- Product list page ---------- */
+        function ListPage({ id }) {
+            const sub = getSubcategory(id);
+            const products = sub ? getBySubcategory(id) : [];
+            return (
+                <div className="container page">
+                    
+                    <div style={{ marginTop: 34 }}>
+                        <button className="back-btn" onClick={goBack}><IcBack size={18} /> Back</button>
+                    </div>
+                    <div className="page-head"><h1 className="page-title">{sub ? sub.name : 'Products'}</h1></div>
+                    <p className="page-sub">{products.length} sample products — demo data</p>
+                    <SearchBar scope={id} onPick={() => {}} />
+                    <div className="product-grid">
+                        {products.map((p) => <ProductCard key={p.id} p={p} />)}
+                    </div>
+                </div>
+            );
+        }
+
+        /* ---------- Product details ---------- */
+        const NUTRI_MAX = { calories: 500, fat: 40, saturatedFat: 25, carbohydrates: 80, sugar: 60, protein: 30, sodium: 1500 };
+        const NUTRI_LABEL = { calories: 'Calories', fat: 'Total Fat', saturatedFat: 'Saturated Fat', carbohydrates: 'Carbohydrates', sugar: 'Sugar', protein: 'Protein', sodium: 'Sodium' };
+        const NUTRI_UNIT = { calories: 'kcal', fat: 'g', saturatedFat: 'g', carbohydrates: 'g', sugar: 'g', protein: 'g', sodium: 'mg' };
+        const NUTRI_COLORS = { calories: '#2B6FFF', fat: '#F472B6', saturatedFat: '#FB9BC0', carbohydrates: '#4D9FFF', sugar: '#DB2777', protein: '#1E9FE8', sodium: '#8A95A8' };
+
+        function NutritionBar({ k, v }) {
+            const pct = Math.min(100, Math.round((v / NUTRI_MAX[k]) * 100));
+            return (
+                <div className="nutri-row">
+                    <div className="nutri-top">
+                        <span>{NUTRI_LABEL[k]} <span style={{ color: 'var(--gray-400)' }}>({NUTRI_UNIT[k]})</span></span>
+                        <span className="nutri-val">{v}</span>
+                    </div>
+                    <div className="nutri-track"><div className="nutri-fill" style={{ width: pct + '%', background: NUTRI_COLORS[k] }} /></div>
+                </div>
+            );
+        }
+
+        function IngredientList({ p }) {
+            const flagged = (p.artificialColors || []).concat(p.additives || []);
+            return (
+                <div className="chip-wrap">
+                    {p.ingredients.map((ing, i) => {
+                        const isFlag = flagged.some((f) => ing.toLowerCase().indexOf(f.toLowerCase()) > -1);
+                        return <span key={i} className={`chip ${isFlag ? 'chip-flag' : ''}`}>{ing}</span>;
+                    })}
+                </div>
+            );
+        }
+
+        function SafetyAnalysis({ p }) {
+            const grade = computeGrade(p);
+            const items = [
+                { t: 'Artificial Colours', ok: !p.artificialColors || p.artificialColors.length === 0, detail: (p.artificialColors && p.artificialColors.length) ? p.artificialColors.join(', ') : 'None detected' },
+                { t: 'Preservatives / Additives', ok: !p.additives || p.additives.length === 0, detail: (p.additives && p.additives.length) ? p.additives.join(', ') : 'None listed' },
+                { t: 'High Sugar', ok: p.sugar <= 22.5, detail: p.sugar + ' g / 100' + (p.sugar > 22.5 ? ' — above guideline' : ' — within guideline') },
+                { t: 'High Fat', ok: p.fat <= 17.5, detail: p.fat + ' g / 100' + (p.fat > 17.5 ? ' — above guideline' : ' — within guideline') },
+                { t: 'High Sodium', ok: p.sodium <= 600, detail: p.sodium + ' mg / 100' + (p.sodium > 600 ? ' — above guideline' : ' — within guideline') },
+                { t: 'Allergens', ok: !p.allergens || p.allergens.length === 0, detail: (p.allergens && p.allergens.length) ? p.allergens.join(', ') : 'None declared' }
+            ];
+            return (
+                <div>
+                    {items.map((it, i) => (
+                        <div key={i} className="safety-item">
+                            <div className={`safety-dot ${it.ok ? 'ok' : 'warn'}`}>{it.ok ? '✓' : '!'}</div>
+                            <div className="safety-body"><b>{it.t}</b><span>{it.detail}</span></div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        function WhyThisGrade({ p }) {
+            const grade = computeGrade(p);
+            const lines = [];
+            lines.push(p.sugar > 22.5 ? 'High sugar (' + p.sugar + ' g/100) lowers the rating.' : p.sugar <= 5 ? 'Low sugar content is a positive factor.' : 'Sugar content is moderate.');
+            lines.push(p.fat > 17.5 ? 'High total fat contributes negatively.' : p.fat <= 3 ? 'Low fat content helps the rating.' : 'Fat content is moderate.');
+            lines.push(p.sodium > 600 ? 'Sodium is above the guideline level.' : p.sodium <= 200 ? 'Sodium is low — a positive factor.' : 'Sodium level is acceptable.');
+            lines.push(p.protein >= 8 ? 'Good protein content adds value.' : 'Protein content is low.');
+            const addCount = (p.additives ? p.additives.length : 0) + (p.artificialColors ? p.artificialColors.length : 0);
+            lines.push(addCount > 0 ? addCount + ' additive/colour entr' + (addCount > 1 ? 'ies' : 'y') + ' listed reduce the score.' : 'No artificial colours or additives listed.');
+            return (
+                <div>
+                    {lines.map((l, i) => (
+                        <div key={i} className="reason-item">
+                            <span className="dot" style={{ background: gradeColor(grade.letter) }} />
+                            <span>{l}</span>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        function ProductPage({ id }) {
+            const p = getProduct(id);
+            if (!p) return <div className="container page"><button className="btn btn-soft" onClick={goBack}>← Back</button><p>Product not found.</p></div>;
+            const grade = computeGrade(p);
+            const nutrients = ['calories', 'fat', 'saturatedFat', 'carbohydrates', 'sugar', 'protein', 'sodium'];
+            return (
+                <div className="container page">
+                    
+                    <div style={{ marginTop: 34 }}>
+                        <button className="back-btn" onClick={goBack}><IcBack size={18} /> Back</button>
+                    </div>
+
+                    <div className="detail-hero">
+                        <ProductImage product={p} size={86} fontSize={2} round={18} />
+                        <div className="detail-hero-info">
+                            <h1>{p.name}</h1>
+                            <div className="p-serving">{p.serving}</div>
+                        </div>
+                        <GradeBadge product={p} size="grade-badge-lg" />
+                    </div>
+
+                    <div className="panel">
+                        <h3>Nutrition Information</h3>
+                        {nutrients.map((k) => <NutritionBar key={k} k={k} v={p[k]} />)}
+                        <div className="note-box">Values shown are sample/demo figures per 100 g/ml.</div>
+                    </div>
+
+                    <div className="panel">
+                        <h3>Ingredients</h3>
+                        <IngredientList p={p} />
+                    </div>
+
+                    <div className="panel">
+                        <h3>Food Safety Analysis</h3>
+                        <SafetyAnalysis p={p} />
+                    </div>
+
+                    <div className="panel">
+                        <h3>Why this grade?</h3>
+                        <WhyThisGrade p={p} />
+                        <div className="note-box">
+                            This grade is a <b>prototype food-rating</b> computed from the sample nutritional and
+                            ingredient data above. It is <b>not a medical diagnosis</b> and not an official certification.
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        /* ---------- Scanner page (simulated) ---------- */
+        function ScannerPage({ variant }) {
+            const [state, setState] = React.useState('idle'); // idle | scanning | done
+            const [detected, setDetected] = React.useState(null);
+
+            React.useEffect(() => {
+                setState('idle');
+                // When scanning a variant, detect a different product from the sample pool.
+                const pool = variant ? PRODUCTS.filter((p) => p.id !== variant) : PRODUCTS;
+                setDetected(pool[Math.floor(Math.random() * pool.length)] || PRODUCTS[0]);
+            }, [variant]);
+
+            const startScan = () => {
+                setState('scanning');
+                setTimeout(() => setState('done'), 2000);
+            };
+
+            return (
+                <div className="container page">
+                    
+                    <div style={{ marginTop: 34 }}>
+                        <button className="back-btn" onClick={goBack}><IcBack size={18} /> Back</button>
+                    </div>
+                    <div className="page-head"><h1 className="page-title">Scan Your Product</h1></div>
+                    <p className="page-sub">Simulated scanner — align the packet inside the frame.</p>
+
+                    <div className="scanner-wrap">
+                        <div className="scan-frame">
+                            <div className="scan-target">
+                                <div className="scan-corner corner-tl" /><div className="scan-corner corner-tr" />
+                                <div className="scan-corner corner-bl" /><div className="scan-corner corner-br" />
+                                {state === 'scanning' && <div className="scan-laser" />}
+                                {state === 'idle' && <IcScan size={72} color="rgba(255,255,255,0.35)" />}
+                                {state === 'done' && <IcCheck size={64} color="#4D9FFF" />}
+                            </div>
+                        </div>
+
+                        <div className="scan-status">
+                            {state === 'idle' && 'Ready to scan'}
+                            {state === 'scanning' && 'Scanning…'}
+                            {state === 'done' && 'Product Detected!'}
+                        </div>
+                        <div className="scan-hint">
+                            {state === 'done' ? detected.name + ' found from sample data' : 'Frontend prototype — no real camera used yet'}
+                        </div>
+
+                        {state === 'idle' && (
+                            <div className="scan-actions" style={{ marginTop: 22 }}>
+                                <button className="btn btn-primary" onClick={startScan}><IcCamera2 size={18} /> Capture</button>
+                                <button className="btn btn-pink" onClick={startScan}><IcUpload size={18} /> Upload Image</button>
+                            </div>
+                        )}
+
+                        {state === 'done' && (
+                            <div className="detected">
+                                <div className="check-circle"><IcCheck size={30} color="#fff" /></div>
+                                <div className="detected-title">{detected.name}</div>
+                                <div style={{ display: 'flex', justifyContent: 'center', marginTop: 14 }}>
+                                    <GradeBadge product={detected} />
+                                </div>
+                                <div className="detected-scan">
+                                    <button className="btn btn-primary" onClick={() => go('/product/' + detected.id)}>View Details</button>
+                                    <button className="btn btn-soft" onClick={startScan}>Scan Again</button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        /* ---------- Profile page (dummy data) ---------- */
+        function ProfilePage() {
+            const saved = PRODUCTS.filter(function (p) { return ['ch1', 'co1', 'sd1', 'gr2'].indexOf(p.id) > -1; });
+            return (
+                <div className="container page">
+                    <div style={{ marginTop: 34 }}>
+                        <button className="back-btn" onClick={goBack}><IcBack size={18} /> Back</button>
+                    </div>
+
+                    <div className="profile-card">
+                        <div className="profile-avatar">A</div>
+                        <div className="profile-meta">
+                            <h2>Aarav Sharma</h2>
+                            <p>aarav.sharma@example.com</p>
+                            <div className="profile-stats">
+                                <div className="stat"><b>12</b><span>Scans</span></div>
+                                <div className="stat"><b>4</b><span>Saved</span></div>
+                                <div className="stat"><b>2</b><span>Reports</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 className="section-title">Saved / Scanned Products</h2>
+                    <div className="product-grid">
+                        {saved.map((p) => <ProductCard key={p.id} p={p} />)}
+                    </div>
+
+                    <h2 className="section-title">Settings</h2>
+                    <div className="panel">
+                        <button className="settings-row"><span className="ic"><IcUser size={20} /></span> Account Information</button>
+                        <button className="settings-row"><span className="ic"><IcBell size={20} /></span> Notifications</button>
+                        <button className="settings-row"><span className="ic"><IcSettings size={20} /></span> App Settings</button>
+                        <button className="settings-row"><span className="ic"><IcShield size={20} /></span> Privacy & Safety</button>
+                        <button className="settings-row"><span className="ic"><IcLogout size={20} /></span> Log out</button>
+                    </div>
+                </div>
+            );
+        }
+    </script>
+
+    <!-- ============================================================
+         APP — splash, routing & bottom nav
+         ============================================================ -->
+    <script type="text/babel" data-presets="react">
+        function BottomNav({ active }) {
+            const items = [
+                { key: 'home', label: 'Home', Icon: IcHome, path: '/', active: active === 'home' },
+                { key: 'scan', label: 'Scan', Icon: IcScan, path: '/scan', active: active === 'scan', scan: true },
+                { key: 'categories', label: 'Categories', Icon: IcGrid, path: '/categories', active: active === 'categories' },
+                { key: 'profile', label: 'Profile', Icon: IcUser, path: '/profile', active: active === 'profile' }
+            ];
+            return (
+                <nav className="bottom-nav">
+                    {items.map((it) => (
+                        <button key={it.key} className={'nav-item' + (it.active ? ' active' : '')} onClick={() => go(it.path)}>
+                            {it.scan
+                                ? <span className="nav-scan"><IcScan size={24} color="#fff" /></span>
+                                : <span className="ic"><it.Icon size={22} /></span>}
+                            <span>{it.label}</span>
+                        </button>
+                    ))}
+                </nav>
+            );
+        }
+
+        function activeTabFor(route) {
+            if (route.name === 'scan') return 'scan';
+            if (route.name === 'categories') return 'categories';
+            if (route.name === 'profile') return 'profile';
+            return 'home';
+        }
+
+        function App() {
+            const [stage, setStage] = React.useState('splash'); // splash | ready
+            const [route, setRoute] = React.useState(Router());
+
+            React.useEffect(() => {
+                const t = setTimeout(() => setStage('ready'), 2300);
+                const onHash = () => setRoute(Router());
+                window.addEventListener('hashchange', onHash);
+                return () => { clearTimeout(t); window.removeEventListener('hashchange', onHash); };
+            }, []);
+
+            if (stage === 'splash') return <Splash />;
+
+            const r = route;
+            let page;
+            if (r.name === 'home') page = <HomePage />;
+            else if (r.name === 'profile') page = <ProfilePage />;
+            else if (r.name === 'categories') page = <CategoriesPage />;
+            else if (r.name === 'category') page = <CategoryPage id={r.params.id} />;
+            else if (r.name === 'list') page = <ListPage id={r.params.id} />;
+            else if (r.name === 'product') page = <ProductPage id={r.params.id} />;
+            else if (r.name === 'scan') page = <ScannerPage variant={r.params.variant} />;
+            else page = <HomePage />;
+
+            return (
+                <div>
+                    <Header onProfile={() => go('/profile')} />
+                    {page}
+                    <div className="nav-spacer" />
+                    <BottomNav active={activeTabFor(r)} />
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
 </body>
 </html>
