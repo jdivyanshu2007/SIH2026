@@ -1,9 +1,10 @@
 package com.SIH.FoodLabel.FoodData;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class FoodController{
@@ -16,5 +17,28 @@ public class FoodController{
     public String PostFoodData(@RequestBody Food food){
         foodRepository.save(food);
         return "uploaded successfully";
+    }
+    @GetMapping("/food/{Category}")
+    public ResponseEntity<List<Food>> GetFoods(@PathVariable String Category){
+        List<Food> foodsList =  foodRepository.findByCategory(Category);
+        return ResponseEntity.ok(foodsList);
+    }
+    @GetMapping("/food/{Category}/{subCategory}/{id}")
+    public ResponseEntity<List<Food>> GetFood(@PathVariable String Category,@PathVariable String subCategory,@PathVariable String id){
+        if(Category.equals("Solid items")){
+            Category = "s";
+        }else if(Category.equals("Beverages")){
+            Category = "B";
+        }
+        if(subCategory.equals("Milkshake")){
+            Category += "M";
+        }else if(subCategory.equals("Energy Drink")){
+            Category = "E";
+        }else if(subCategory.equals("Soft Drink")){
+            Category = "S";
+        }
+        Category  += id;
+        List<Food> foodsList =  foodRepository.findByCategory(Category);
+        return ResponseEntity.ok(foodsList);
     }
 }
