@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class FoodController{
     private final FoodRepository foodRepository;
@@ -28,6 +29,8 @@ public class FoodController{
         if(Category.equals("Solid items")){
             Category = "S";
         }else if(Category.equals("Beverages")){
+            Category = "B";
+        }else if(Category.equals("Grocery")){
             Category = "B";
         }
         if(subCategory.equals("Milkshake")){

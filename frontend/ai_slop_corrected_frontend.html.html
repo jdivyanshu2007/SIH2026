@@ -483,7 +483,7 @@
            and are NOT official government or brand data. */
         function P(id, name, category, subcategory, cal, fat, sfat, carbs, sugar, prot, sodium, serving, ingredients, additives, colors, allergens, extra) {
             return {
-                id: id,
+                id: Number(id),
                 name: name,
                 category: category,
                 subcategory: subcategory,
@@ -506,64 +506,64 @@
 
         var PRODUCTS = [
             /* ---- Soft Drinks ---- */
-            P('sd1', 'Coca-Cola', 'beverages', 'soft-drinks', 42, 0, 0, 10.6, 10.6, 0, 3, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Caramel Colour', 'Phosphoric Acid', 'Caffeine', 'Natural Flavours'], ['Phosphoric Acid', 'Caffeine'], ['Caramel E150d'], []),
-            P('sd2', 'Pepsi', 'beverages', 'soft-drinks', 44, 0, 0, 11, 11, 0, 4, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Caramel Colour', 'Phosphoric Acid', 'Caffeine'], ['Phosphoric Acid', 'Caffeine'], ['Caramel E150d'], []),
-            P('sd3', 'Sprite', 'beverages', 'soft-drinks', 40, 0, 0, 9.5, 9.5, 0, 10, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Citric Acid', 'Natural Lemon & Lime Flavours', 'Sodium Citrate'], ['Citric Acid'], [], []),
-            P('sd4', 'Fanta', 'beverages', 'soft-drinks', 48, 0, 0, 11.6, 11.6, 0, 12, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Orange Juice Concentrate', 'Citric Acid', 'Preservatives'], ['Citric Acid', 'Sodium Benzoate'], ['Sunset Yellow E110', 'Allura Red E129'], []),
-            P('sd5', '7UP', 'beverages', 'soft-drinks', 40, 0, 0, 9.7, 9.7, 0, 20, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Citric Acid', 'Natural Flavours', 'Sodium Citrate'], ['Citric Acid'], [], []),
+            P('1', 'Coca-Cola', 'beverages', 'soft-drinks', 42, 0, 0, 10.6, 10.6, 0, 3, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Caramel Colour', 'Phosphoric Acid', 'Caffeine', 'Natural Flavours'], ['Phosphoric Acid', 'Caffeine'], ['Caramel E150d'], []),
+            P('2', 'Pepsi', 'beverages', 'soft-drinks', 44, 0, 0, 11, 11, 0, 4, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Caramel Colour', 'Phosphoric Acid', 'Caffeine'], ['Phosphoric Acid', 'Caffeine'], ['Caramel E150d'], []),
+            P('3', 'Sprite', 'beverages', 'soft-drinks', 40, 0, 0, 9.5, 9.5, 0, 10, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Citric Acid', 'Natural Lemon & Lime Flavours', 'Sodium Citrate'], ['Citric Acid'], [], []),
+            P('4', 'Fanta', 'beverages', 'soft-drinks', 48, 0, 0, 11.6, 11.6, 0, 12, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Orange Juice Concentrate', 'Citric Acid', 'Preservatives'], ['Citric Acid', 'Sodium Benzoate'], ['Sunset Yellow E110', 'Allura Red E129'], []),
+            P('5', '7UP', 'beverages', 'soft-drinks', 40, 0, 0, 9.7, 9.7, 0, 20, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Citric Acid', 'Natural Flavours', 'Sodium Citrate'], ['Citric Acid'], [], []),
 
             /* ---- Energy Drinks ---- */
-            P('en1', 'Tata Glucose', 'beverages', 'energy-drinks', 62, 0, 0, 15, 15, 0, 45, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Glucose', 'Citric Acid', 'Colour'], ['Citric Acid'], ['Sunset Yellow E110'], ['Not tested for children']),
-            P('en2', 'Gatorade', 'beverages', 'energy-drinks', 21, 0, 0, 5.5, 5.5, 0, 90, 'per 100 ml', ['Water', 'Sugar', 'Dextrose', 'Citric Acid', 'Salt', 'Potassium Citrate'], ['Citric Acid'], [], [], {caffeine: 0}),
-            P('en3', 'Sting', 'beverages', 'energy-drinks', 65, 0, 0, 15, 15, 0, 105, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Citric Acid', 'Caffeine', 'Colour', 'Preservatives'], ['Citric Acid', 'Sodium Benzoate', 'Caffeine'], ['Sunset Yellow E110'], ['Caffeine'], {caffeine: 32}),
-            P('en4', 'Red Bull', 'beverages', 'energy-drinks', 45, 0, 0, 11, 10.5, 0, 0, 'per 100 ml', ['Carbonated Water', 'Sucrose', 'Glucose', 'Citric Acid', 'Caffeine', 'Taurine', 'B Vitamins'], ['Citric Acid', 'Caffeine', 'Taurine'], ['Caramel'], ['Caffeine'], {caffeine: 32}),
-            P('en5', 'Monster', 'beverages', 'energy-drinks', 47, 0, 0, 11, 11, 0, 120, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Caffeine', 'L-Carnitine', 'B Vitamins', 'Colour'], ['Caffeine', 'L-Carnitine'], ['Caramel'], ['Caffeine'], {caffeine: 33}),
+            P('1', 'Tata Glucose', 'beverages', 'energy-drinks', 62, 0, 0, 15, 15, 0, 45, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Glucose', 'Citric Acid', 'Colour'], ['Citric Acid'], ['Sunset Yellow E110'], ['Not tested for children']),
+            P('2', 'Gatorade', 'beverages', 'energy-drinks', 21, 0, 0, 5.5, 5.5, 0, 90, 'per 100 ml', ['Water', 'Sugar', 'Dextrose', 'Citric Acid', 'Salt', 'Potassium Citrate'], ['Citric Acid'], [], [], {caffeine: 0}),
+            P('3', 'Sting', 'beverages', 'energy-drinks', 65, 0, 0, 15, 15, 0, 105, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Citric Acid', 'Caffeine', 'Colour', 'Preservatives'], ['Citric Acid', 'Sodium Benzoate', 'Caffeine'], ['Sunset Yellow E110'], ['Caffeine'], {caffeine: 32}),
+            P('4', 'Red Bull', 'beverages', 'energy-drinks', 45, 0, 0, 11, 10.5, 0, 0, 'per 100 ml', ['Carbonated Water', 'Sucrose', 'Glucose', 'Citric Acid', 'Caffeine', 'Taurine', 'B Vitamins'], ['Citric Acid', 'Caffeine', 'Taurine'], ['Caramel'], ['Caffeine'], {caffeine: 32}),
+            P('5', 'Monster', 'beverages', 'energy-drinks', 47, 0, 0, 11, 11, 0, 120, 'per 100 ml', ['Carbonated Water', 'Sugar', 'Caffeine', 'L-Carnitine', 'B Vitamins', 'Colour'], ['Caffeine', 'L-Carnitine'], ['Caramel'], ['Caffeine'], {caffeine: 33}),
 
             /* ---- Milkshakes ---- */
-            P('ms1', 'Keventers Milkshake', 'beverages', 'milkshakes', 120, 5, 3.2, 16, 13, 4, 60, 'per 100 ml', ['Milk', 'Sugar', 'Chocolate Powder', 'Emulsifiers', 'Stabilisers'], ['Emulsifiers', 'Stabilisers'], [], ['Milk']),
-            P('ms2', 'Milky Mist Milkshake', 'beverages', 'milkshakes', 115, 5.5, 3.5, 14, 12, 3.5, 70, 'per 100 ml', ['Milk', 'Sugar', 'Chocolate Syrup', 'Stabilisers'], ['Stabilisers'], [], ['Milk']),
-            P('ms3', 'Hershey\'s Milkshake', 'beverages', 'milkshakes', 130, 5, 3, 18, 14, 4, 80, 'per 100 ml', ['Milk', 'Sugar', 'Cocoa Solids', 'Emulsifiers'], ['Emulsifiers'], [], ['Milk', 'Soy']),
-            P('ms4', 'Strawberry Banana Smoothie', 'beverages', 'milkshakes', 85, 1.5, 0.8, 18, 12, 2, 25, 'per 100 ml', ['Water', 'Fruit Pulp', 'Sugar', 'Yogurt Culture', 'Pectin'], ['Pectin'], [], ['Milk']),
+            P('1', 'Keventers Milkshake', 'beverages', 'milkshakes', 120, 5, 3.2, 16, 13, 4, 60, 'per 100 ml', ['Milk', 'Sugar', 'Chocolate Powder', 'Emulsifiers', 'Stabilisers'], ['Emulsifiers', 'Stabilisers'], [], ['Milk']),
+            P('2', 'Milky Mist Milkshake', 'beverages', 'milkshakes', 115, 5.5, 3.5, 14, 12, 3.5, 70, 'per 100 ml', ['Milk', 'Sugar', 'Chocolate Syrup', 'Stabilisers'], ['Stabilisers'], [], ['Milk']),
+            P('3', 'Hershey\'s Milkshake', 'beverages', 'milkshakes', 130, 5, 3, 18, 14, 4, 80, 'per 100 ml', ['Milk', 'Sugar', 'Cocoa Solids', 'Emulsifiers'], ['Emulsifiers'], [], ['Milk', 'Soy']),
+            P('4', 'Strawberry Banana Smoothie', 'beverages', 'milkshakes', 85, 1.5, 0.8, 18, 12, 2, 25, 'per 100 ml', ['Water', 'Fruit Pulp', 'Sugar', 'Yogurt Culture', 'Pectin'], ['Pectin'], [], ['Milk']),
 
             /* ---- Chips ---- */
-            P('ch1', 'Lay\'s Classic', 'solid', 'chips', 536, 34, 5.4, 53, 2.1, 7, 450, 'per 100 g', ['Potatoes', 'Vegetable Oil', 'Salt', 'Seasoning'], ['Seasoning Blend'], [], []),
-            P('ch2', 'Bingo Mad Angles', 'solid', 'chips', 520, 30, 4, 55, 4, 5, 480, 'per 100 g', ['Corn', 'Vegetable Oil', 'Salt', 'Spices', 'Flavour Enhancers'], ['Monosodium Glutamate'], [], ['Gluten']),
-            P('ch3', 'Kurkure', 'solid', 'chips', 530, 31, 4.5, 54, 5, 6, 520, 'per 100 g', ['Rice', 'Pulse Flour', 'Vegetable Oil', 'Spices', 'Flavour Enhancers'], ['Monosodium Glutamate'], ['Tartrazine E102'], ['Gluten']),
-            P('ch4', 'Too Yumm', 'solid', 'chips', 520, 30, 4, 55, 3, 6, 440, 'per 100 g', ['Potatoes', 'Palmolein Oil', 'Salt', 'Seasoning'], ['Flavour Enhancers'], [], []),
-            P('ch5', 'Uncle Chipps', 'solid', 'chips', 533, 33, 5, 52, 2, 7, 460, 'per 100 g', ['Potatoes', 'Vegetable Oil', 'Salt'], [], [], []),
+            P('1', 'Lay\'s Classic', 'solid', 'chips', 536, 34, 5.4, 53, 2.1, 7, 450, 'per 100 g', ['Potatoes', 'Vegetable Oil', 'Salt', 'Seasoning'], ['Seasoning Blend'], [], []),
+            P('2', 'Bingo Mad Angles', 'solid', 'chips', 520, 30, 4, 55, 4, 5, 480, 'per 100 g', ['Corn', 'Vegetable Oil', 'Salt', 'Spices', 'Flavour Enhancers'], ['Monosodium Glutamate'], [], ['Gluten']),
+            P('3', 'Kurkure', 'solid', 'chips', 530, 31, 4.5, 54, 5, 6, 520, 'per 100 g', ['Rice', 'Pulse Flour', 'Vegetable Oil', 'Spices', 'Flavour Enhancers'], ['Monosodium Glutamate'], ['Tartrazine E102'], ['Gluten']),
+            P('4', 'Too Yumm', 'solid', 'chips', 520, 30, 4, 55, 3, 6, 440, 'per 100 g', ['Potatoes', 'Palmolein Oil', 'Salt', 'Seasoning'], ['Flavour Enhancers'], [], []),
+            P('5', 'Uncle Chipps', 'solid', 'chips', 533, 33, 5, 52, 2, 7, 460, 'per 100 g', ['Potatoes', 'Vegetable Oil', 'Salt'], [], [], []),
 
             /* ---- Biscuits ---- */
-            P('bi1', 'Milk Bikis', 'solid', 'biscuits', 460, 18, 6, 70, 25, 7, 300, 'per 100 g', ['Wheat Flour', 'Sugar', 'Palm Oil', 'Milk Solids', 'Leavening Agents'], ['Leavening Agents'], [], ['Gluten', 'Milk', 'Soy']),
-            P('bi2', 'Britannia Marie Gold', 'solid', 'biscuits', 443, 14, 6, 72, 20, 7, 340, 'per 100 g', ['Wheat Flour', 'Sugar', 'Palm Oil', 'Milk Solids', 'Salt'], ['Leavening Agents'], [], ['Gluten', 'Milk', 'Soy']),
-            P('bi3', 'Parle-G', 'solid', 'biscuits', 450, 16, 7, 70, 22, 6, 360, 'per 100 g', ['Wheat Flour', 'Sugar', 'Palm Oil', 'Milk Solids', 'Invert Syrup'], ['Leavening Agents'], [], ['Gluten', 'Milk', 'Soy']),
-            P('bi4', 'Good Day Pista', 'solid', 'biscuits', 500, 23, 9, 66, 27, 6, 280, 'per 100 g', ['Wheat Flour', 'Sugar', 'Palm Oil', 'Pista', 'Milk Solids', 'Salt'], ['Leavening Agents'], [], ['Gluten', 'Milk', 'Tree Nut']),
-            P('bi5', 'Hide & Seek', 'solid', 'biscuits', 490, 20, 8, 68, 30, 6, 290, 'per 100 g', ['Wheat Flour', 'Sugar', 'Palm Oil', 'Cocoa Solids', 'Milk Solids'], ['Emulsifier'], [], ['Gluten', 'Milk', 'Soy']),
+            P('1', 'Milk Bikis', 'solid', 'biscuits', 460, 18, 6, 70, 25, 7, 300, 'per 100 g', ['Wheat Flour', 'Sugar', 'Palm Oil', 'Milk Solids', 'Leavening Agents'], ['Leavening Agents'], [], ['Gluten', 'Milk', 'Soy']),
+            P('2', 'Britannia Marie Gold', 'solid', 'biscuits', 443, 14, 6, 72, 20, 7, 340, 'per 100 g', ['Wheat Flour', 'Sugar', 'Palm Oil', 'Milk Solids', 'Salt'], ['Leavening Agents'], [], ['Gluten', 'Milk', 'Soy']),
+            P('3', 'Parle-G', 'solid', 'biscuits', 450, 16, 7, 70, 22, 6, 360, 'per 100 g', ['Wheat Flour', 'Sugar', 'Palm Oil', 'Milk Solids', 'Invert Syrup'], ['Leavening Agents'], [], ['Gluten', 'Milk', 'Soy']),
+            P('4', 'Good Day Pista', 'solid', 'biscuits', 500, 23, 9, 66, 27, 6, 280, 'per 100 g', ['Wheat Flour', 'Sugar', 'Palm Oil', 'Pista', 'Milk Solids', 'Salt'], ['Leavening Agents'], [], ['Gluten', 'Milk', 'Tree Nut']),
+            P('5', 'Hide & Seek', 'solid', 'biscuits', 490, 20, 8, 68, 30, 6, 290, 'per 100 g', ['Wheat Flour', 'Sugar', 'Palm Oil', 'Cocoa Solids', 'Milk Solids'], ['Emulsifier'], [], ['Gluten', 'Milk', 'Soy']),
 
             /* ---- Chocolate ---- */
-            P('co1', 'Cadbury Dairy Milk', 'solid', 'chocolate', 535, 30, 18.5, 59, 56, 7.8, 80, 'per 100 g', ['Sugar', 'Milk Solids', 'Cocoa Butter', 'Cocoa Mass', 'Emulsifiers', 'Vanilla Extract'], ['Emulsifier (E476)'], [], ['Milk', 'Soy']),
-            P('co2', 'Hershey\'s Milk Chocolate', 'solid', 'chocolate', 530, 29, 17, 60, 54, 7, 85, 'per 100 g', ['Sugar', 'Milk', 'Cocoa Butter', 'Cocoa Mass', 'Soy Lecithin'], ['Soy Lecithin'], [], ['Milk', 'Soy']),
-            P('co3', 'Amul Dark Chocolate (55%)', 'solid', 'chocolate', 540, 33, 19, 52, 40, 7, 20, 'per 100 g', ['Cocoa Mass', 'Sugar', 'Cocoa Butter', 'Emulsifiers', 'Vanillin'], ['Emulsifier'], [], ['Milk', 'Soy']),
-            P('co4', '5 Star', 'solid', 'chocolate', 520, 27, 14, 63, 50, 6, 90, 'per 100 g', ['Sugar', 'Asiago Sugar', 'Milk Solids', 'Cocoa Butter', 'Cocoa Mass', 'Peanuts'], ['Emulsifier'], [], ['Milk', 'Peanut', 'Soy']),
-            P('co5', 'KitKat', 'solid', 'chocolate', 520, 28, 16, 60, 50, 7, 70, 'per 100 g', ['Sugar', 'Wheat Flour', 'Milk Solids', 'Cocoa Mass', 'Cocoa Butter', 'Palm Oil'], ['Emulsifier'], [], ['Gluten', 'Milk', 'Soy']),
+            P('1', 'Cadbury Dairy Milk', 'solid', 'chocolate', 535, 30, 18.5, 59, 56, 7.8, 80, 'per 100 g', ['Sugar', 'Milk Solids', 'Cocoa Butter', 'Cocoa Mass', 'Emulsifiers', 'Vanilla Extract'], ['Emulsifier (E476)'], [], ['Milk', 'Soy']),
+            P('2', 'Hershey\'s Milk Chocolate', 'solid', 'chocolate', 530, 29, 17, 60, 54, 7, 85, 'per 100 g', ['Sugar', 'Milk', 'Cocoa Butter', 'Cocoa Mass', 'Soy Lecithin'], ['Soy Lecithin'], [], ['Milk', 'Soy']),
+            P('3', 'Amul Dark Chocolate (55%)', 'solid', 'chocolate', 540, 33, 19, 52, 40, 7, 20, 'per 100 g', ['Cocoa Mass', 'Sugar', 'Cocoa Butter', 'Emulsifiers', 'Vanillin'], ['Emulsifier'], [], ['Milk', 'Soy']),
+            P('4', '5 Star', 'solid', 'chocolate', 520, 27, 14, 63, 50, 6, 90, 'per 100 g', ['Sugar', 'Asiago Sugar', 'Milk Solids', 'Cocoa Butter', 'Cocoa Mass', 'Peanuts'], ['Emulsifier'], [], ['Milk', 'Peanut', 'Soy']),
+            P('5', 'KitKat', 'solid', 'chocolate', 520, 28, 16, 60, 50, 7, 70, 'per 100 g', ['Sugar', 'Wheat Flour', 'Milk Solids', 'Cocoa Mass', 'Cocoa Butter', 'Palm Oil'], ['Emulsifier'], [], ['Gluten', 'Milk', 'Soy']),
 
             /* ---- Milk solids / health drinks ---- */
-            P('gr1', 'Boost', 'grocery', 'milk-solids', 380, 4.5, 2.5, 65, 68, 14, 390, 'per 100 g (powder)', ['Barley Malt Extract', 'Milk Solids', 'Sugar', 'Cocoa Solids', 'B Vitamins'], ['Vitamins & Minerals blend'], [], ['Gluten', 'Milk']),
-            P('gr2', 'Horlicks', 'grocery', 'milk-solids', 393, 5, 2.8, 71, 57, 15, 410, 'per 100 g (powder)', ['Barley Malt Extract', 'Milk Solids', 'Sugar', 'Wheat Atta'], ['Vitamins & Minerals blend'], [], ['Gluten', 'Milk']),
-            P('gr3', 'Milo', 'grocery', 'milk-solids', 385, 4, 2, 66, 60, 12, 260, 'per 100 g (powder)', ['Barley Malt Extract', 'Milk Solids', 'Sugar', 'Cocoa Solids', 'Minerals'], ['Vitamins & Minerals blend'], [], ['Gluten', 'Milk']),
-            P('gr4', 'Complan', 'grocery', 'milk-solids', 400, 6, 3, 64, 55, 18, 430, 'per 100 g (powder)', ['Milk Solids', 'Sugar', 'Barley Malt Extracts', 'Vegetable Oils', 'Vitamins & Minerals'], ['Vitamins & Minerals blend'], [], ['Gluten', 'Milk']),
+            P('1', 'Boost', 'grocery', 'milk-solids', 380, 4.5, 2.5, 65, 68, 14, 390, 'per 100 g (powder)', ['Barley Malt Extract', 'Milk Solids', 'Sugar', 'Cocoa Solids', 'B Vitamins'], ['Vitamins & Minerals blend'], [], ['Gluten', 'Milk']),
+            P('2', 'Horlicks', 'grocery', 'milk-solids', 393, 5, 2.8, 71, 57, 15, 410, 'per 100 g (powder)', ['Barley Malt Extract', 'Milk Solids', 'Sugar', 'Wheat Atta'], ['Vitamins & Minerals blend'], [], ['Gluten', 'Milk']),
+            P('3', 'Milo', 'grocery', 'milk-solids', 385, 4, 2, 66, 60, 12, 260, 'per 100 g (powder)', ['Barley Malt Extract', 'Milk Solids', 'Sugar', 'Cocoa Solids', 'Minerals'], ['Vitamins & Minerals blend'], [], ['Gluten', 'Milk']),
+            P('4', 'Complan', 'grocery', 'milk-solids', 400, 6, 3, 64, 55, 18, 430, 'per 100 g (powder)', ['Milk Solids', 'Sugar', 'Barley Malt Extracts', 'Vegetable Oils', 'Vitamins & Minerals'], ['Vitamins & Minerals blend'], [], ['Gluten', 'Milk']),
 
             /* ---- Packed food ---- */
-            P('pf1', 'Maggi Noodles (Masala)', 'grocery', 'packed-food', 440, 16, 7, 66, 6, 9, 1500, 'per 100 g (dry)', ['Wheat Flour', 'Palm Oil', 'Salt', 'Onion', 'Spices', 'Flavour Enhancers'], ['Monosodium Glutamate', 'Sodium Bicarbonate'], [], ['Gluten', 'Soy']),
-            P('pf2', 'Ching\'s Instant Noodles', 'grocery', 'packed-food', 450, 17, 8, 66, 5, 8, 1450, 'per 100 g (dry)', ['Wheat Flour', 'Palm Oil', 'Salt', 'Chilli', 'Flavour Enhancers'], ['Monosodium Glutamate'], [], ['Gluten', 'Soy']),
-            P('pf3', 'Top Ramen Noodles', 'grocery', 'packed-food', 445, 16, 7, 67, 5, 9, 1480, 'per 100 g (dry)', ['Wheat Flour', 'Palm Oil', 'Salt', 'Vegetable Powder', 'Flavour Enhancers'], ['Monosodium Glutamate'], [], ['Gluten', 'Soy']),
-            P('pf4', 'Instant Pasta (Cheesy)', 'grocery', 'packed-food', 350, 4, 2, 60, 8, 12, 800, 'per 100 g (dry)', ['Durum Wheat', 'Cheese Powder', 'Salt', 'Milk Solids', 'Herbs'], [], [], ['Gluten', 'Milk']),
+            P('1', 'Maggi Noodles (Masala)', 'grocery', 'packed-food', 440, 16, 7, 66, 6, 9, 1500, 'per 100 g (dry)', ['Wheat Flour', 'Palm Oil', 'Salt', 'Onion', 'Spices', 'Flavour Enhancers'], ['Monosodium Glutamate', 'Sodium Bicarbonate'], [], ['Gluten', 'Soy']),
+            P('2', 'Ching\'s Instant Noodles', 'grocery', 'packed-food', 450, 17, 8, 66, 5, 8, 1450, 'per 100 g (dry)', ['Wheat Flour', 'Palm Oil', 'Salt', 'Chilli', 'Flavour Enhancers'], ['Monosodium Glutamate'], [], ['Gluten', 'Soy']),
+            P('3', 'Top Ramen Noodles', 'grocery', 'packed-food', 445, 16, 7, 67, 5, 9, 1480, 'per 100 g (dry)', ['Wheat Flour', 'Palm Oil', 'Salt', 'Vegetable Powder', 'Flavour Enhancers'], ['Monosodium Glutamate'], [], ['Gluten', 'Soy']),
+            P('4', 'Instant Pasta (Cheesy)', 'grocery', 'packed-food', 350, 4, 2, 60, 8, 12, 800, 'per 100 g (dry)', ['Durum Wheat', 'Cheese Powder', 'Salt', 'Milk Solids', 'Herbs'], [], [], ['Gluten', 'Milk']),
 
             /* ---- Frozen & canned ---- */
-            P('fr1', 'Frozen Chicken', 'grocery', 'frozen', 220, 13, 4, 0, 0, 22, 250, 'per 100 g', ['Chicken', 'Water', 'Salt'], [], [], []),
-            P('fr2', 'Frozen Mixed Vegetables', 'grocery', 'frozen', 60, 0.5, 0.1, 12, 4, 3, 20, 'per 100 g', ['Peas', 'Carrots', 'Corn', 'Beans'], [], [], []),
-            P('fr3', 'Canned Chicken', 'grocery', 'frozen', 180, 8, 2.5, 2, 0, 24, 600, 'per 100 g', ['Chicken', 'Salt', 'Water', 'Preservatives'], ['Nitrite (E250)'], [], []),
-            P('fr4', 'Canned Tomatoes', 'grocery', 'frozen', 25, 0.2, 0, 4, 2.5, 1, 150, 'per 100 g', ['Tomatoes', 'Tomato Juice', 'Citric Acid'], ['Citric Acid'], [], []),
-            P('fr5', 'Tinned Fish (Sardines)', 'grocery', 'frozen', 200, 10, 2, 1, 0, 24, 500, 'per 100 g', ['Sardines', 'Vegetable Oil', 'Salt'], [], [], ['Fish'])
+            P('1', 'Frozen Chicken', 'grocery', 'frozen', 220, 13, 4, 0, 0, 22, 250, 'per 100 g', ['Chicken', 'Water', 'Salt'], [], [], []),
+            P('2', 'Frozen Mixed Vegetables', 'grocery', 'frozen', 60, 0.5, 0.1, 12, 4, 3, 20, 'per 100 g', ['Peas', 'Carrots', 'Corn', 'Beans'], [], [], []),
+            P('3', 'Canned Chicken', 'grocery', 'frozen', 180, 8, 2.5, 2, 0, 24, 600, 'per 100 g', ['Chicken', 'Salt', 'Water', 'Preservatives'], ['Nitrite (E250)'], [], []),
+            P('4', 'Canned Tomatoes', 'grocery', 'frozen', 25, 0.2, 0, 4, 2.5, 1, 150, 'per 100 g', ['Tomatoes', 'Tomato Juice', 'Citric Acid'], ['Citric Acid'], [], []),
+            P('5', 'Tinned Fish (Sardines)', 'grocery', 'frozen', 200, 10, 2, 1, 0, 24, 500, 'per 100 g', ['Sardines', 'Vegetable Oil', 'Salt'], [], [], ['Fish'])
         ];
     </script>
 
@@ -625,61 +625,201 @@
         }
 
         /* Helpers to walk the dataset */
-        async function getFoodFromAPI(category, subCategory, id) {
-            console.log(id,category,subCategory);
-            const response = await fetch(
-                `http://localhost:8080/food/${category}/${subCategory}/${id}`
-            );
-            console.log(`http://localhost:8080/food/${category}/${subCategory}/${id}`)
-
-            if (!response.ok) {
-                throw new Error("Failed to fetch food data");
-            }
-
-            const data = await response.json();
-
-            return {
-                id: data.ruleId,
-                name: data.itemName,
-                brand: data.brandName,
-                category: data.category,
-                subcategory: data.subCategory,
-
-                serving: data.servingSizeG + " g",
-
-                calories: data.caloriesKcal,
-                carbohydrates: data.carbohydratesG,
-                protein: data.proteinsG,
-                fat: data.totalFatG,
-                saturatedFat: data.saturatedFatG,
-                sugar: data.sugarG,
-                sodium: data.sodiumMg,
-
-                ingredients: data.ingredients
-                    ? data.ingredients.split(",").map(x => x.trim())
-                    : [],
-
-                additives: data.additives
-                    ? data.additives.split(",").map(x => x.trim())
-                    : [],
-
-                artificialColors: [],
-
-                allergens: [],
-
-                preservatives: data.preservatives,
-
-                dietaryFiber: data.dietaryFiberG,
-                transFat: data.transFatG,
-                cholesterol: data.cholesterolMg,
-                calcium: data.calciumMg,
-                iron: data.ironMg,
-                vitamin: data.vitamin,
-                expireData: data.expireData
+        function apiCategory(category) {
+            var map = {
+                'beverages': 'Beverages',
+                'solid': 'Solid items',
+                'grocery': 'Grocery'
             };
+            return map[category] || category;
         }
-        function getProduct(id) {
-            for (var i = 0; i < PRODUCTS.length; i++) { if (PRODUCTS[i].id === id) return PRODUCTS[i]; }
+
+        function apiSubCategory(subCategory) {
+            var map = {
+                'soft-drinks': 'Soft Drink',
+                'energy-drinks': 'Energy Drink',
+                'milkshakes': 'Milkshake',
+                'chips': 'Chips',
+                'biscuits': 'Biscuits',
+                'chocolate': 'Chocolate',
+                'milk-solids': 'Milk Solids',
+                'packed-food': 'Packed Food',
+                'frozen': 'Frozen'
+            };
+            return map[subCategory] || subCategory;
+        }
+
+        async function getFoodsFromAPI(category) {
+    const frontendCategory = decodeURIComponent(category || "");
+    const backendCategory = apiCategory(frontendCategory.toLowerCase());
+
+    const url =
+        `http://localhost:8080/food/${encodeURIComponent(backendCategory)}`;
+
+    console.log("=================================");
+    console.log("CALLING CATEGORY API:", url);
+
+    const response = await fetch(url);
+
+    console.log("CATEGORY API STATUS:", response.status);
+
+    const text = await response.text();
+
+    console.log("CATEGORY API RESPONSE:", text);
+
+    if (!response.ok) {
+        throw new Error(
+            `Category API failed: ${response.status} ${response.statusText}`
+        );
+    }
+
+    if (!text || !text.trim()) {
+        throw new Error(`Category API returned an empty response for ${url}`);
+    }
+
+    let foods;
+
+    try {
+        foods = JSON.parse(text);
+    } catch (e) {
+        throw new Error(`Category API returned invalid JSON: ${text}`);
+    }
+
+    if (!Array.isArray(foods)) {
+        throw new Error("Category API did not return a product list.");
+    }
+
+    return foods.map(function(data) {
+        // ruleId values are like BM1, BM2, BS1, etc.
+        // The product detail API expects only the numeric part together
+        // with the exact category/subcategory.
+        const ruleIdMatch = String(data.ruleId || "").match(/(\d+)$/);
+        const numericId = ruleIdMatch ? Number(ruleIdMatch[1]) : data.ruleId;
+
+        return {
+            id: numericId,
+            ruleId: data.ruleId,
+            name: data.itemName,
+            brand: data.brandName,
+            category: data.category,
+            subcategory: data.subCategory,
+
+            serving: data.servingSizeG + " g",
+
+            calories: data.caloriesKcal,
+            carbohydrates: data.carbohydratesG,
+            protein: data.proteinsG,
+            fat: data.totalFatG,
+            saturatedFat: data.saturatedFatG,
+            sugar: data.sugarG,
+            sodium: data.sodiumMg,
+
+            ingredients: data.ingredients
+                ? data.ingredients.split(",").map(x => x.trim())
+                : [],
+
+            additives: data.additives
+                ? data.additives.split(",").map(x => x.trim())
+                : [],
+
+            artificialColors: [],
+            allergens: [],
+
+            preservatives: data.preservatives,
+
+            dietaryFiber: data.dietaryFiberG,
+            transFat: data.transFatG,
+            cholesterol: data.cholesterolMg,
+            calcium: data.calciumMg,
+            iron: data.ironMg,
+            vitamin: data.vitamin,
+            expireData: data.expireData
+        };
+    });
+}
+
+async function getFoodFromAPI(category, subCategory, id) {
+    const categoryMap = {
+        "beverages": "Beverages",
+        "solid": "Solid items",
+        "solid-items": "Solid items",
+        "grocery": "Grocery"
+    };
+
+    const subCategoryMap = {
+        "milkshakes": "Milkshake",
+        "milkshake": "Milkshake",
+        "energy-drinks": "Energy Drink",
+        "energy drink": "Energy Drink",
+        "soft-drinks": "Soft Drink",
+        "soft drink": "Soft Drink",
+        "chips": "Chips",
+        "biscuits": "Biscuits",
+        "chocolate": "Chocolate",
+        "milk-solids": "Milk Solids & Health Drinks",
+        "milk solids": "Milk Solids & Health Drinks",
+        "milk solids & health drinks": "Milk Solids & Health Drinks",
+        "packed-food": "Packed Food",
+        "packed food": "Packed Food",
+        "frozen": "Frozen & Canned Items",
+        "frozen & canned items": "Frozen & Canned Items"
+    };
+
+    const frontendCategory = decodeURIComponent(String(category || '')).trim();
+    const frontendSubCategory = decodeURIComponent(String(subCategory || '')).trim();
+    const backendCategory = categoryMap[frontendCategory.toLowerCase()] || frontendCategory;
+    const backendSubCategory = subCategoryMap[frontendSubCategory.toLowerCase()] || frontendSubCategory;
+    const idMatch = String(id || '').match(/(\d+)$/);
+    const numericId = idMatch ? Number(idMatch[1]) : Number(id);
+
+    if (!backendCategory || !backendSubCategory || !Number.isInteger(numericId)) {
+        throw new Error(`Invalid product route: ${category}/${subCategory}/${id}`);
+    }
+
+    const url = `http://localhost:8080/food/${encodeURIComponent(backendCategory)}/${encodeURIComponent(backendSubCategory)}/${numericId}`;
+    console.log('=================================');
+    console.log('CALLING PRODUCT API:', url);
+    console.log('Frontend category:', frontendCategory);
+    console.log('Frontend subcategory:', frontendSubCategory);
+    console.log('Backend category:', backendCategory);
+    console.log('Backend subcategory:', backendSubCategory);
+    console.log('Product ID:', numericId);
+
+    const response = await fetch(url);
+    const text = await response.text();
+    console.log('PRODUCT API STATUS:', response.status);
+    console.log('PRODUCT API RESPONSE:', text);
+
+    if (!response.ok) throw new Error(`API failed: ${response.status} ${response.statusText}`);
+    if (!text || !text.trim()) throw new Error(`API returned an empty response for ${url}`);
+
+    let data;
+    try { data = JSON.parse(text); }
+    catch (e) { throw new Error(`API returned invalid JSON: ${text}`); }
+
+    return {
+        id: data.ruleId, ruleId: data.ruleId, name: data.itemName, brand: data.brandName,
+        category: data.category, subcategory: data.subCategory, serving: data.servingSizeG + ' g',
+        calories: data.caloriesKcal, carbohydrates: data.carbohydratesG, protein: data.proteinsG,
+        fat: data.totalFatG, saturatedFat: data.saturatedFatG, sugar: data.sugarG, sodium: data.sodiumMg,
+        ingredients: data.ingredients ? data.ingredients.split(',').map(x => x.trim()) : [],
+        additives: data.additives ? data.additives.split(',').map(x => x.trim()) : [],
+        artificialColors: [], allergens: [], preservatives: data.preservatives,
+        dietaryFiber: data.dietaryFiberG, transFat: data.transFatG, cholesterol: data.cholesterolMg,
+        calcium: data.calciumMg, iron: data.ironMg, vitamin: data.vitamin, expireData: data.expireData
+    };
+}
+
+        function getProduct(id, category, subcategory) {
+            id = Number(id);
+            for (var i = 0; i < PRODUCTS.length; i++) {
+                var p = PRODUCTS[i];
+                if (p.id === id &&
+                    (!category || p.category === category) &&
+                    (!subcategory || p.subcategory === subcategory)) {
+                    return p;
+                }
+            }
             return null;
         }
         function getBySubcategory(sub) {
@@ -742,10 +882,14 @@
             'chips': 'potato-chips', 'biscuits': 'biscuits', 'chocolate': 'chocolate',
             'milk-solids': 'milk', 'packed-food': 'noodles', 'frozen': 'frozen-food'
         };
+        function productKey(product) {
+            return product.category + '/' + product.subcategory + '/' + product.id;
+        }
+
         var IMAGE_MAP = {};
         PRODUCTS.forEach(function (p) {
             var tag = IMAGE_TAG_BY_ID[p.id] || IMAGE_TAG_BY_SUB[p.subcategory] || 'food';
-            IMAGE_MAP[p.id] = 'https://loremflickr.com/480/480/' + tag;
+            IMAGE_MAP[productKey(p)] = 'https://loremflickr.com/480/480/' + tag;
         });
     </script>
 
@@ -836,11 +980,11 @@
             else if (parts[0] === 'categories') { route.name = 'categories'; }
             else if (parts[0] === 'category' && parts[1]) { route.name = 'category'; route.params.id = parts[1]; }
             else if (parts[0] === 'list' && parts[1]) { route.name = 'list'; route.params.id = parts[1]; }
-            else if (parts[0] === 'product' && parts[1]) {
+            else if (parts[0] === 'product' && parts[1] && parts[2] && parts[3]) {
                 route.name = 'product';
-                route.params.category = parts[1];
-                route.params.subcategory = parts[2];
-                route.params.id = parts[3];
+                route.params.category = decodeURIComponent(parts[1]);
+                route.params.subCategory = decodeURIComponent(parts[2]);
+                route.params.id = Number(parts[3]);
             }
             else if (parts[0] === 'scan') { route.name = 'scan'; route.params.variant = parts[1] || null; }
             return route;
@@ -851,7 +995,7 @@
         /* ---------- Product image (real photo if IMAGE_MAP has a URL, else gradient tile) ---------- */
         function ProductImage({ product, size = 64, fontSize = 1.5, round = 14, cover = false }) {
             const [broken, setBroken] = React.useState(false);
-            const url = IMAGE_MAP[product.id];
+            const url = IMAGE_MAP[productKey(product)];
             if (url && !broken) {
                 const style = cover
                     ? { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: round }
@@ -925,7 +1069,7 @@
                         <div className="search-results">
                             {results.length === 0 && <div className="search-empty">No matches found</div>}
                             {results.map((p) => (
-                                <button key={p.id} className="search-item" onMouseDown={() => { if (onPick) onPick(p); go('/product/' + p.id); }}>
+                                <button key={p.id} className="search-item" onMouseDown={() => { if (onPick) onPick(p); go('/product/' + encodeURIComponent(p.category || '') + '/' + encodeURIComponent(p.subcategory || '') + '/' + p.id); }}>
                                     <ProductImage product={p} size={38} fontSize={1} round={10} />
                                     <span className="search-item-name">{p.name}</span>
                                     <span className="search-item-cat">{p.subcategory.split('-').join(' ')}</span>
@@ -998,7 +1142,7 @@
                             <span className="p-fact">Fat <b>{p.fat}g</b></span>
                         </div>
                         <div className="p-actions">
-                            <button className="btn btn-primary" onClick={() => go('/product/' + p.id)}>View Details</button>
+                            <button className="btn btn-primary" onClick={() => go('/product/' + encodeURIComponent(p.category || '') + '/' + encodeURIComponent(p.subcategory || '') + '/' + p.id)}>View Details</button>
                             <button className="btn btn-outline" onClick={() => go('/scan/' + p.id)}>Scan Variant</button>
                         </div>
                     </div>
@@ -1095,23 +1239,143 @@
 
         /* ---------- Product list page ---------- */
         function ListPage({ id }) {
-            const sub = getSubcategory(id);
-            const products = sub ? getBySubcategory(id) : [];
-            return (
-                <div className="container page">
-                    
-                    <div style={{ marginTop: 34 }}>
-                        <button className="back-btn" onClick={goBack}><IcBack size={18} /> Back</button>
-                    </div>
-                    <div className="page-head"><h1 className="page-title">{sub ? sub.name : 'Products'}</h1></div>
-                    <p className="page-sub">{products.length} sample products — demo data</p>
-                    <SearchBar scope={id} onPick={() => {}} />
-                    <div className="product-grid">
-                        {products.map((p) => <ProductCard key={p.id} p={p} />)}
-                    </div>
-                </div>
-            );
+    const sub = getSubcategory(id);
+
+    const [products, setProducts] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+    const [error, setError] = React.useState(null);
+
+    React.useEffect(() => {
+        async function loadProducts() {
+            try {
+                setLoading(true);
+                setError(null);
+
+                if (!sub) {
+                    throw new Error("Subcategory not found.");
+                }
+
+                // Find the parent category from CATEGORIES.
+                let parentCategory = null;
+
+                for (let i = 0; i < CATEGORIES.length; i++) {
+                    if (
+                        CATEGORIES[i].subs.some(function(s) {
+                            return s.id === id;
+                        })
+                    ) {
+                        parentCategory = CATEGORIES[i];
+                        break;
+                    }
+                }
+
+                if (!parentCategory) {
+                    throw new Error("Parent category not found.");
+                }
+
+                // Fetch ALL products for the parent category from MariaDB.
+                const allProducts = await getFoodsFromAPI(parentCategory.id);
+
+                // Match the database subCategory against the exact backend
+                // value for this frontend route (e.g. milkshakes -> Milkshake).
+                const expectedSubCategory = apiSubCategory(id);
+
+                const filteredProducts = allProducts.filter(function(p) {
+                    return String(p.subcategory || "").trim().toLowerCase() ===
+                           String(expectedSubCategory || "").trim().toLowerCase();
+                });
+
+                console.log(
+                    "SUBCATEGORY:", expectedSubCategory,
+                    "ALL PRODUCTS:", allProducts.length,
+                    "MATCHED PRODUCTS:", filteredProducts.length
+                );
+
+                setProducts(filteredProducts);
+            } catch (err) {
+                console.error("PRODUCT LIST API ERROR:", err);
+                setError(err.message || "Failed to load products.");
+            } finally {
+                setLoading(false);
+            }
         }
+
+        loadProducts();
+    }, [id]);
+
+    if (!sub) {
+        return (
+            <div className="container page">
+                <button className="back-btn" onClick={goBack}>
+                    <IcBack size={18} /> Back
+                </button>
+                <p>Products not found.</p>
+            </div>
+        );
+    }
+
+    if (loading) {
+        return (
+            <div className="container page">
+                <div style={{ marginTop: 34 }}>
+                    <button className="back-btn" onClick={goBack}>
+                        <IcBack size={18} /> Back
+                    </button>
+                </div>
+                <div className="page-head">
+                    <h1 className="page-title">{sub.name}</h1>
+                </div>
+                <p className="page-sub">Loading products from database...</p>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="container page">
+                <div style={{ marginTop: 34 }}>
+                    <button className="back-btn" onClick={goBack}>
+                        <IcBack size={18} /> Back
+                    </button>
+                </div>
+                <div className="page-head">
+                    <h1 className="page-title">{sub.name}</h1>
+                </div>
+                <p className="page-sub">{error}</p>
+            </div>
+        );
+    }
+
+    return (
+        <div className="container page">
+            <div style={{ marginTop: 34 }}>
+                <button className="back-btn" onClick={goBack}>
+                    <IcBack size={18} /> Back
+                </button>
+            </div>
+
+            <div className="page-head">
+                <h1 className="page-title">{sub.name}</h1>
+            </div>
+
+            <p className="page-sub">
+                {products.length} products from database
+            </p>
+
+            <SearchBar scope={id} onPick={() => {}} />
+
+            <div className="product-grid">
+                {products.length > 0 ? (
+                    products.map(function(p) {
+                        return <ProductCard key={p.id} p={p} />;
+                    })
+                ) : (
+                    <p>No products found in this subcategory.</p>
+                )}
+            </div>
+        </div>
+    );
+}
 
         /* ---------- Product details ---------- */
         const NUTRI_MAX = { calories: 500, fat: 40, saturatedFat: 25, carbohydrates: 80, sugar: 60, protein: 30, sodium: 1500 };
@@ -1187,167 +1451,136 @@
             );
         }
 
-        function ProductPage({id , category , subCategory}) {
-            const [product, setProduct] = React.useState(null);
-            const [loading, setLoading] = React.useState(true);
-            const [error, setError] = React.useState(null);
+        function ProductPage({ id, category, subCategory }) {
+    const [product, setProduct] = React.useState(null);
+    const [loading, setLoading] = React.useState(true);
+    const [error, setError] = React.useState(null);
 
-            React.useEffect(() => {
-                async function loadProduct() {
-                    try {
-                        setLoading(true);
-                        setError(null);
+    React.useEffect(() => {
+        async function loadProduct() {
+            try {
+                setLoading(true);
+                setError(null);
 
-                        console.log("product data recieved:",{category,subCategory,id});
-                        const data = await getFoodFromAPI(
-                            id,
-                            category,
-                            subCategory
-                        );
+                const idMatch = String(id || '').match(/(\d+)$/);
+                const numericId = idMatch ? Number(idMatch[1]) : Number(id);
 
-                        setProduct(data);
-                    } catch (err) {
-                        console.error("API ERROR:", err);
-                        setError("Failed to load product.");
-                    } finally {
-                        setLoading(false);
-                    }
+                console.log("ProductPage received:", {
+                    id,
+                    numericId,
+                    category,
+                    subCategory
+                });
+
+                if (!category || !subCategory || Number.isNaN(numericId)) {
+                    throw new Error(
+                        "Missing product category, subcategory, or valid numeric ID."
+                    );
                 }
 
-                loadProduct();
-            }, [id]);
-
-            if (loading) {
-                return (
-                    <div className="container page">
-                        <div style={{ marginTop: 34 }}>
-                            <button className="back-btn" onClick={goBack}>
-                                <IcBack size={18} /> Back
-                            </button>
-                        </div>
-
-                        <p style={{ marginTop: 30 }}>Loading product...</p>
-                    </div>
+                const data = await getFoodFromAPI(
+                    category,
+                    subCategory,
+                    numericId
                 );
+
+                setProduct(data);
+            } catch (err) {
+                console.error("API ERROR:", err);
+                setError(err.message || "Failed to load product.");
+            } finally {
+                setLoading(false);
             }
+        }
 
-            if (error || !product) {
-                return (
-                    <div className="container page">
-                        <div style={{ marginTop: 34 }}>
-                            <button className="back-btn" onClick={goBack}>
-                                <IcBack size={18} /> Back
-                            </button>
-                        </div>
+        loadProduct();
+    }, [id, category, subCategory]);
 
-                        <p style={{ marginTop: 30 }}>
-                            {error || "Product not found."}
-                        </p>
-                    </div>
-                );
-            }
 
-            const p = product;
-            const grade = computeGrade(p);
 
-            return (
-                <div className="container page">
+    if (loading) {
+        return (
+            <div className="container page">
+                <p>Loading product...</p>
+            </div>
+        );
+    }
 
-                    <div style={{ marginTop: 34 }}>
-                        <button className="back-btn" onClick={goBack}>
-                            <IcBack size={18} /> Back
-                        </button>
-                    </div>
+    if (error || !product) {
+        return (
+            <div className="container page">
+                <button className="btn btn-soft" onClick={goBack}>
+                    ← Back
+                </button>
+                <p>{error || "Product not found."}</p>
+            </div>
+        );
+    }
 
-                    <div className="detail-hero">
+    const p = product;
 
-                        <ProductImage product={p} size={86} />
+    const grade = computeGrade(p);
 
-                        <div className="detail-hero-info">
+    const nutrients = [
+        'calories',
+        'fat',
+        'saturatedFat',
+        'carbohydrates',
+        'sugar',
+        'protein',
+        'sodium'
+    ];
 
-                            <h1>{p.name}</h1>
+    return (
+        <div className="container page">
 
-                            <div className="p-serving">
-                                {p.brand} • {p.serving}
-                            </div>
+            <div style={{ marginTop: 34 }}>
+                <button className="back-btn" onClick={goBack}>
+                    <IcBack size={18} /> Back
+                </button>
+            </div>
 
-                            <div className="grade-wrap" style={{ marginTop: 14 }}>
-                                <GradeBadge product={p} />
+            <div className="product-layout">
 
-                                <div>
-                                    <div style={{ fontWeight: 700 }}>
-                                        {grade.label}
-                                    </div>
+                <ProductImage product={p} />
 
-                                    <div style={{
-                                        fontSize: '0.82rem',
-                                        color: 'var(--gray-500)'
-                                    }}>
-                                        Score: {grade.score}/100
-                                    </div>
-                                </div>
-                            </div>
+                <div className="product-info">
 
-                        </div>
-                    </div>
+                    <h1>{p.name}</h1>
 
-                    <div className="panel">
-                        <h3>Nutrition</h3>
-
-                        <NutritionBar
-                            k="calories"
-                            v={p.calories}
-                        />
-
-                        <NutritionBar
-                            k="fat"
-                            v={p.fat}
-                        />
-
-                        <NutritionBar
-                            k="saturatedFat"
-                            v={p.saturatedFat}
-                        />
-
-                        <NutritionBar
-                            k="carbohydrates"
-                            v={p.carbohydrates}
-                        />
-
-                        <NutritionBar
-                            k="sugar"
-                            v={p.sugar}
-                        />
-
-                        <NutritionBar
-                            k="protein"
-                            v={p.protein}
-                        />
-
-                        <NutritionBar
-                            k="sodium"
-                            v={p.sodium}
-                        />
+                    <div className="p-brand">
+                        {p.brand}
                     </div>
 
-                    <div className="panel">
-                        <h3>Ingredients</h3>
-                        <IngredientList p={p} />
+                    <div className="p-serving">
+                        {p.serving}
                     </div>
 
-                    <div className="panel">
-                        <h3>Safety Analysis</h3>
-                        <SafetyAnalysis p={p} />
+                    {/* Nutrition */}
+                    <div className="nutrition-list">
+                        {nutrients.map((k) => (
+                            <NutritionBar
+                                key={k}
+                                k={k}
+                                v={p[k]}
+                            />
+                        ))}
                     </div>
 
-                    <div className="panel">
-                        <h3>Why This Grade?</h3>
-                        <WhyThisGrade p={p} />
-                    </div>
+                    {/* Ingredients */}
+                    <IngredientList p={p} />
+
+                    {/* Safety */}
+                    <SafetyAnalysis p={p} />
+
+                    {/* Grade explanation */}
+                    <WhyThisGrade p={p} />
 
                 </div>
-            );
-        }
+            </div>
+        </div>
+    );
+}
         /* ---------- Scanner page (simulated) ---------- */
         function ScannerPage({ variant }) {
             const [state, setState] = React.useState('idle'); // idle | scanning | done
@@ -1409,7 +1642,7 @@
                                     <GradeBadge product={detected} />
                                 </div>
                                 <div className="detected-scan">
-                                    <button className="btn btn-primary" onClick={() => go('/product/' + detected.id)}>View Details</button>
+                                    <button className="btn btn-primary" onClick={() => go('/product/' + encodeURIComponent(detected.category || '') + '/' + encodeURIComponent(detected.subcategory || '') + '/' + detected.id)}>View Details</button>
                                     <button className="btn btn-soft" onClick={startScan}>Scan Again</button>
                                 </div>
                             </div>
@@ -1421,7 +1654,7 @@
 
         /* ---------- Profile page (dummy data) ---------- */
         function ProfilePage() {
-            const saved = PRODUCTS.filter(function (p) { return ['ch1', 'co1', 'sd1', 'gr2'].indexOf(p.id) > -1; });
+            const saved = PRODUCTS.filter(function (p) { return (p.category === 'solid' && p.subcategory === 'chips' && p.id === 1) || (p.category === 'solid' && p.subcategory === 'chocolate' && p.id === 1) || (p.category === 'beverages' && p.subcategory === 'soft-drinks' && p.id === 1) || (p.category === 'grocery' && p.subcategory === 'milk-solids' && p.id === 2); });
             return (
                 <div className="container page">
                     <div style={{ marginTop: 34 }}>
@@ -1510,7 +1743,7 @@
             else if (r.name === 'categories') page = <CategoriesPage />;
             else if (r.name === 'category') page = <CategoryPage id={r.params.id} />;
             else if (r.name === 'list') page = <ListPage id={r.params.id} />;
-            else if (r.name === 'product') page = <ProductPage  category={r.params.category} subCategory={r.params.subategory} id={r.params.id} />;
+            else if (r.name === 'product') page = <ProductPage id={r.params.id} category={r.params.category} subCategory={r.params.subCategory} />;
             else if (r.name === 'scan') page = <ScannerPage variant={r.params.variant} />;
             else page = <HomePage />;
 
