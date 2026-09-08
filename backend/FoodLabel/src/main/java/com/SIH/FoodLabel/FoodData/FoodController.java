@@ -24,21 +24,21 @@ public class FoodController{
         return ResponseEntity.ok(foodsList);
     }
     @GetMapping("/food/{Category}/{subCategory}/{id}")
-    public ResponseEntity<List<Food>> GetFood(@PathVariable String Category,@PathVariable String subCategory,@PathVariable String id){
+    public ResponseEntity<Food> GetFood(@PathVariable String Category,@PathVariable String subCategory,@PathVariable String id){
         if(Category.equals("Solid items")){
-            Category = "s";
+            Category = "S";
         }else if(Category.equals("Beverages")){
             Category = "B";
         }
         if(subCategory.equals("Milkshake")){
             Category += "M";
         }else if(subCategory.equals("Energy Drink")){
-            Category = "E";
+            Category += "E";
         }else if(subCategory.equals("Soft Drink")){
-            Category = "S";
+            Category += "S";
         }
-        Category  += id;
-        List<Food> foodsList =  foodRepository.findByCategory(Category);
+        Category += id;
+        Food foodsList =  foodRepository.findByRuleId(Category);
         return ResponseEntity.ok(foodsList);
     }
 }
