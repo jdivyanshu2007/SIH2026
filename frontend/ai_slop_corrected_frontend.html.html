@@ -15,7 +15,7 @@
         :root {
             /* Core palette */
             --white: #FFFFFF;
-            --bg: #F7F9FC;
+            --bg: # #bccbde;
             --gray-50: #F1F4F9;
             --gray-100: #E7ECF3;
             --gray-200: #D8E0EC;
@@ -261,7 +261,7 @@
         .cat-card:hover .cat-arrow { background: var(--gradient-app); color: #fff; transform: translateX(3px); }
 
         /* Subcategory card */
-        .sub-card { padding: 22px 18px; cursor: pointer; display: flex; align-items: center; gap: 14px; }
+        .sub-card { padding: 22px 18px; cursor: pointer; display: flex; align-items: center; gap: 54px; }
         .sub-card .sub-icon {
             width: 52px; height: 52px; border-radius: var(--r-md); color: #fff;
             display: flex; align-items: center; justify-content: center; flex-shrink: 0;
@@ -839,14 +839,14 @@ async function getFoodFromAPI(category, subCategory, id) {
         /* Categories navigation structure */
         var CATEGORIES = [
             { id: 'beverages', name: 'Beverages', desc: 'Soft drinks, energy drinks & milkshakes', icon: 'can', subs: [
-                { id: 'soft-drinks', name: 'Soft Drinks', desc: 'Fizzy carbonated drinks', count: 5 },
-                { id: 'energy-drinks', name: 'Energy Drinks', desc: 'Refresh with caffeine & glucose', count: 5 },
-                { id: 'milkshakes', name: 'Milkshakes', desc: 'Thick, creamy milk-based shakes', count: 4 }
+                { id: 'soft-drinks', name: 'Soft Drinks', desc: 'Fizzy carbonated drinks', count: null },
+                { id: 'energy-drinks', name: 'Energy Drinks', desc: 'Refresh with caffeine & glucose', count: null },
+                { id: 'milkshakes', name: 'Milkshakes', desc: 'Thick, creamy milk-based shakes', count: null }
             ] },
             { id: 'solid', name: 'Solid Items', desc: 'Chips, biscuits & chocolate', icon: 'cookie', subs: [
-                { id: 'chips', name: 'Chips', desc: 'Crunchy packaged snacks', count: 5 },
-                { id: 'biscuits', name: 'Biscuits', desc: 'Baked sweet & savoury treats', count: 5 },
-                { id: 'chocolate', name: 'Chocolate', desc: 'Milk, dark & filled bars', count: 5 }
+                { id: 'chips', name: 'Chips', desc: 'Crunchy packaged snacks', count: null },
+                { id: 'biscuits', name: 'Biscuits', desc: 'Baked sweet & savoury treats', count: null },
+                { id: 'chocolate', name: 'Chocolate', desc: 'Milk, dark & filled bars', count: null }
             ] },
             { id: 'grocery', name: 'Grocery', desc: 'Health mixes, packed meals & canned', icon: 'bag', subs: [
                 { id: 'milk-solids', name: 'Milk Solids & Health Drinks', desc: 'Malt-based health drink mixes', count: 4 },
@@ -920,11 +920,27 @@ async function getFoodFromAPI(category, subCategory, id) {
         const IcCheck   = (p) => <Icx {...p} d="M20 6L9 17l-5-5" />;
         const IcShield  = (p) => <Icx {...p} d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />;
         const IcBolt    = (p) => <Icx {...p} d="M13 2L3 14h9l-1 8 10-12h-9z" />;
-        const IcCan     = (p) => <Icx {...p}><path d="M17 8H7v6a2 2 0 0 0 1 1.7l3 2V23M7 6V2h10v4" /></Icx>;
+        const IcCan = (p) => (
+            <img
+                {...p}
+                src="..\Assets\icons\BEVERAGES.jpg"
+                alt="Beverage"
+            />
+        );
         const IcCup     = (p) => <Icx {...p}><path d="M4 18h16M8 18a4 4 0 0 1 8 0zM6 10a6 6 0 0 1 12 0" /><path d="M6 10h12v3a3 3 0 0 1-6 0" /></Icx>;
         const IcChips   = (p) => <Icx {...p}><rect x="4" y="4" width="16" height="16" rx="3" /><path d="M8 8h8M8 12h8M8 16h5" /></Icx>;
-        const IcCookie  = (p) => <Icx {...p}><circle cx="12" cy="12" r="9" /><circle cx="9" cy="9" r="1.3" fill={p.color} stroke="none" /><circle cx="15" cy="11" r="1.3" fill={p.color} stroke="none" /><circle cx="10" cy="15" r="1.3" fill={p.color} stroke="none" /></Icx>;
-        const IcBag     = (p) => <Icx {...p}><path d="M6 2l-2 5v13a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7l-2-5z" /><path d="M2 7h20M9 11a3 3 0 0 0 6 0" /></Icx>;
+        const IcCookie  = (p) => (<img
+                    {...p}
+                    src = "..\Assets\icons\SOLID_FOOD.png"
+                    alt = "SOLID ITEM"
+                />
+        );
+        const IcBag     = (p) => (<img
+                    {...p}
+                    src ="../Assets\icons\GROCERY.png"
+                    alt = "GROCERY"
+                />
+        );
         const IcSettings= (p) => <Icx {...p}><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3h0a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5h0a1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9v0a1.7 1.7 0 0 0 1.5 1h.1a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" /></Icx>;
         const IcBell    = (p) => <Icx {...p}><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0" /></Icx>;
         const IcLogout  = (p) => <Icx {...p}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" /></Icx>;
@@ -1115,7 +1131,6 @@ async function getFoodFromAPI(category, subCategory, id) {
                         <h4>{sub.name}</h4>
                         <p>{sub.desc}</p>
                     </div>
-                    <span className="count">{sub.count}</span>
                 </button>
             );
         }
@@ -1175,12 +1190,8 @@ async function getFoodFromAPI(category, subCategory, id) {
                     <section className="scan-hero">
                         <div className="scan-hero-inner">
                             <div className="scan-icon-badge"><IcScan size={34} /></div>
-                            <h2>Scan Your Food</h2>
+                            <h2>LabelCheck</h2>
                             <p>Scan a food packet to discover its nutrition and food-safety information.</p>
-                            <div className="scan-actions">
-                                <button className="btn btn-primary" onClick={() => go('/scan')}><IcScan size={18} /> Scan Product</button>
-                                <button className="btn btn-pink" onClick={() => go('/scan')}><IcUpload size={18} /> Upload Image</button>
-                            </div>
                             <div className="grade-legend">
                                 <span className="legend-chip grade-A"><GradeChip letter="A" /> Excellent</span>
                                 <span className="legend-chip grade-B"><GradeChip letter="B" /> Good</span>
@@ -1188,7 +1199,6 @@ async function getFoodFromAPI(category, subCategory, id) {
                                 <span className="legend-chip grade-D"><GradeChip letter="D" /> Limit</span>
                                 <span className="legend-chip grade-E"><GradeChip letter="E" /> Avoid</span>
                             </div>
-                            <div className="demo-note">Prototype uses sample data — grades are illustrative, not medical advice.</div>
                         </div>
                     </section>
 
@@ -1223,13 +1233,13 @@ async function getFoodFromAPI(category, subCategory, id) {
             if (!cat) return <div className="container page"><button className="btn btn-soft" onClick={goBack}>← Back</button><p>Category not found.</p></div>;
             return (
                 <div className="container page">
-                    
                     <div style={{ marginTop: 34 }}>
                         <button className="back-btn" onClick={goBack}><IcBack size={18} /> Back</button>
                     </div>
                     <div className="page-head"><h1 className="page-title">{cat.name}</h1></div>
                     <p className="page-sub">{cat.desc}</p>
                     <SearchBar scope={cat.subs.map((s) => s.id)} onPick={() => {}} />
+                    <br/>
                     <div className="sub-grid">
                         {cat.subs.map((s) => <SubcategoryCard key={s.id} sub={s} catId={cat.id} />)}
                     </div>
@@ -1358,12 +1368,8 @@ async function getFoodFromAPI(category, subCategory, id) {
                 <h1 className="page-title">{sub.name}</h1>
             </div>
 
-            <p className="page-sub">
-                {products.length} products from database
-            </p>
-
             <SearchBar scope={id} onPick={() => {}} />
-
+            <br/>
             <div className="product-grid">
                 {products.length > 0 ? (
                     products.map(function(p) {
@@ -1701,7 +1707,7 @@ async function getFoodFromAPI(category, subCategory, id) {
                 { key: 'home', label: 'Home', Icon: IcHome, path: '/', active: active === 'home' },
                 { key: 'scan', label: 'Scan', Icon: IcScan, path: '/scan', active: active === 'scan', scan: true },
                 { key: 'categories', label: 'Categories', Icon: IcGrid, path: '/categories', active: active === 'categories' },
-                { key: 'profile', label: 'Profile', Icon: IcUser, path: '/profile', active: active === 'profile' }
+                //{ key: 'profile', label: 'Profile', Icon: IcUser, path: '/profile', active: active === 'profile' }
             ];
             return (
                 <nav className="bottom-nav">

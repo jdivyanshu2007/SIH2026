@@ -44,4 +44,10 @@ public class FoodController{
         Food foodsList =  foodRepository.findByRuleId(Category);
         return ResponseEntity.ok(foodsList);
     }
+    @GetMapping("/food/image/{Category}/{SubCategory}/{id}")
+    public Byte[] ProductImage(@PathVariable String Category , @PathVariable String SubCategory , @PathVariable String id){
+        String Imagelocation = Category+"/"+SubCategory+"/"+id;
+        Path path = ;
+        return Imagelocation;
+    }
 }
