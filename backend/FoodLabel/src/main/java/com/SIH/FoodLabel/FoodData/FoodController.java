@@ -1,10 +1,15 @@
 package com.SIH.FoodLabel.FoodData;
+import org.springframework.http.MediaType;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
-
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.nio.file.Path;
 import java.util.List;
+import java.nio.file.Files;
+import java.io.IOException;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -39,15 +44,24 @@ public class FoodController{
             Category += "E";
         }else if(subCategory.equals("Soft Drink")){
             Category += "S";
+        }else if(subCategory.equals("Soft Drink")){
+            Category += "S";
         }
         Category += id;
         Food foodsList =  foodRepository.findByRuleId(Category);
         return ResponseEntity.ok(foodsList);
     }
-    @GetMapping("/food/image/{Category}/{SubCategory}/{id}")
-    public Byte[] ProductImage(@PathVariable String Category , @PathVariable String SubCategory , @PathVariable String id){
-        String Imagelocation = Category+"/"+SubCategory+"/"+id;
-        Path path = ;
-        return Imagelocation;
+    @GetMapping(value = "/food/image/{Category}/{SubCategory}/{id}" , produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] ProductImage(@PathVariable String Category , @PathVariable String SubCategory , @PathVariable String id) throws IOException{
+        Path path = Paths.get(
+                "..",
+                "..",
+                "Assets",
+                "Product",
+                Category,
+                SubCategory,
+                id + ".WEBP"
+        );
+        return Files.readAllBytes(path);
     }
 }

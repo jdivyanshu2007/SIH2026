@@ -650,92 +650,92 @@
         }
 
         async function getFoodsFromAPI(category) {
-    const frontendCategory = decodeURIComponent(category || "");
-    const backendCategory = apiCategory(frontendCategory.toLowerCase());
+                const frontendCategory = decodeURIComponent(category || "");
+                const backendCategory = apiCategory(frontendCategory.toLowerCase());
 
-    const url =
-        `http://localhost:8080/food/${encodeURIComponent(backendCategory)}`;
+                const url =
+                    `http://localhost:8080/food/${encodeURIComponent(backendCategory)}`;
 
-    console.log("=================================");
-    console.log("CALLING CATEGORY API:", url);
+                console.log("=================================");
+                console.log("CALLING CATEGORY API:", url);
 
-    const response = await fetch(url);
+                const response = await fetch(url);
 
-    console.log("CATEGORY API STATUS:", response.status);
+                console.log("CATEGORY API STATUS:", response.status);
 
-    const text = await response.text();
+                const text = await response.text();
 
-    console.log("CATEGORY API RESPONSE:", text);
+                console.log("CATEGORY API RESPONSE:", text);
 
-    if (!response.ok) {
-        throw new Error(
-            `Category API failed: ${response.status} ${response.statusText}`
-        );
-    }
+                if (!response.ok) {
+                    throw new Error(
+                        `Category API failed: ${response.status} ${response.statusText}`
+                    );
+                }
 
-    if (!text || !text.trim()) {
-        throw new Error(`Category API returned an empty response for ${url}`);
-    }
+                if (!text || !text.trim()) {
+                    throw new Error(`Category API returned an empty response for ${url}`);
+                }
 
-    let foods;
+                let foods;
 
-    try {
-        foods = JSON.parse(text);
-    } catch (e) {
-        throw new Error(`Category API returned invalid JSON: ${text}`);
-    }
+                try {
+                    foods = JSON.parse(text);
+                } catch (e) {
+                    throw new Error(`Category API returned invalid JSON: ${text}`);
+                }
 
-    if (!Array.isArray(foods)) {
-        throw new Error("Category API did not return a product list.");
-    }
+                if (!Array.isArray(foods)) {
+                    throw new Error("Category API did not return a product list.");
+                }
 
-    return foods.map(function(data) {
-        // ruleId values are like BM1, BM2, BS1, etc.
-        // The product detail API expects only the numeric part together
-        // with the exact category/subcategory.
-        const ruleIdMatch = String(data.ruleId || "").match(/(\d+)$/);
-        const numericId = ruleIdMatch ? Number(ruleIdMatch[1]) : data.ruleId;
+                return foods.map(function(data) {
+                    // ruleId values are like BM1, BM2, BS1, etc.
+                    // The product detail API expects only the numeric part together
+                    // with the exact category/subcategory.
+                    const ruleIdMatch = String(data.ruleId || "").match(/(\d+)$/);
+                    const numericId = ruleIdMatch ? Number(ruleIdMatch[1]) : data.ruleId;
 
-        return {
-            id: numericId,
-            ruleId: data.ruleId,
-            name: data.itemName,
-            brand: data.brandName,
-            category: data.category,
-            subcategory: data.subCategory,
+                    return {
+                        id: numericId,
+                        ruleId: data.ruleId,
+                        name: data.itemName,
+                        brand: data.brandName,
+                        category: data.category,
+                        subcategory: data.subCategory,
 
-            serving: data.servingSizeG + " g",
+                        serving: data.servingSizeG + " g",
 
-            calories: data.caloriesKcal,
-            carbohydrates: data.carbohydratesG,
-            protein: data.proteinsG,
-            fat: data.totalFatG,
-            saturatedFat: data.saturatedFatG,
-            sugar: data.sugarG,
-            sodium: data.sodiumMg,
+                        calories: data.caloriesKcal,
+                        carbohydrates: data.carbohydratesG,
+                        protein: data.proteinsG,
+                        fat: data.totalFatG,
+                        saturatedFat: data.saturatedFatG,
+                        sugar: data.sugarG,
+                        sodium: data.sodiumMg,
 
-            ingredients: data.ingredients
-                ? data.ingredients.split(",").map(x => x.trim())
-                : [],
+                        ingredients: data.ingredients
+                            ? data.ingredients.split(",").map(x => x.trim())
+                            : [],
 
-            additives: data.additives
-                ? data.additives.split(",").map(x => x.trim())
-                : [],
+                        additives: data.additives
+                            ? data.additives.split(",").map(x => x.trim())
+                            : [],
 
-            artificialColors: [],
-            allergens: [],
+                        artificialColors: [],
+                        allergens: [],
 
-            preservatives: data.preservatives,
+                        preservatives: data.preservatives,
 
-            dietaryFiber: data.dietaryFiberG,
-            transFat: data.transFatG,
-            cholesterol: data.cholesterolMg,
-            calcium: data.calciumMg,
-            iron: data.ironMg,
-            vitamin: data.vitamin,
-            expireData: data.expireData
-        };
-    });
+                        dietaryFiber: data.dietaryFiberG,
+                        transFat: data.transFatG,
+                        cholesterol: data.cholesterolMg,
+                        calcium: data.calciumMg,
+                        iron: data.ironMg,
+                        vitamin: data.vitamin,
+                        expireData: data.expireData
+                    };
+                });
 }
 
 async function getFoodFromAPI(category, subCategory, id) {
@@ -1011,20 +1011,40 @@ async function getFoodFromAPI(category, subCategory, id) {
         /* ---------- Product image (real photo if IMAGE_MAP has a URL, else gradient tile) ---------- */
         function ProductImage({ product, size = 64, fontSize = 1.5, round = 14, cover = false }) {
             const [broken, setBroken] = React.useState(false);
-            const url = IMAGE_MAP[productKey(product)];
-            if (url && !broken) {
-                const style = cover
-                    ? { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: round }
-                    : { width: size * 2.4, height: size * 1.4, objectFit: 'cover', borderRadius: round };
-                return <img key={product.id} src={url} alt={product.name} style={style} onError={() => setBroken(true)} />;
-            }
             const grad = { beverages: 'linear-gradient(135deg,#2B6FFF,#4D9FFF)', solid: 'linear-gradient(135deg,#F472B6,#FB9BC0)', grocery: 'linear-gradient(135deg,#6E7BF0,#4D9FFF)' };
+            if(product.category == "Beverages"){
+                product.category = "beverage";
+            }
+            if(product.subcategory == "Milkshake"){
+                product.subcategory = "milk shakes";
+            }
+            if(product.subcategory == "Energy Drink"){
+                product.subcategory = "energy drinks";
+            }
+            if(product.subcategory == "Soft Drink"){
+                product.subcategory = "soft drinks";
+            }
+            const apiUrl =`http://localhost:8080/food/image/${encodeURIComponent(product.category)}/${encodeURIComponent(product.subcategory)}/${encodeURIComponent(product.id)}`;
+            if(product.category == "beverage"){
+                product.category = "Beverages";
+            }
+            if(product.subcategory == "milk shakes"){
+                product.subcategory = "Milkshake";
+            }
+            if(product.subcategory == "energy drinks"){
+                product.subcategory = "Energy Drink";
+            }
+            if(product.subcategory == "soft drinks"){
+                product.subcategory = "Soft Drink";
+            }
+            console.log(apiUrl);
             return (
                 <div
                     className="p-tile"
                     style={{ background: grad[product.category] || grad.beverages, fontSize: fontSize + 'rem', width: size, height: size }}
                 >
-                    {product.name.charAt(0).toUpperCase()}
+                    <img src = {apiUrl}></img>
+                    
                 </div>
             );
         }
@@ -1141,7 +1161,7 @@ async function getFoodFromAPI(category, subCategory, id) {
             return (
                 <div className="card product-card">
                     <div className="p-thumb">
-                        <ProductImage product={p} size={64} cover />
+                        <ProductImage product={p} size={904} cover />
                     </div>
                     <div className="p-body">
                         <div className="p-card-row">
@@ -1548,8 +1568,6 @@ async function getFoodFromAPI(category, subCategory, id) {
 
             <div className="product-layout">
 
-                <ProductImage product={p} />
-
                 <div className="product-info">
 
                     <h1>{p.name}</h1>
@@ -1581,6 +1599,9 @@ async function getFoodFromAPI(category, subCategory, id) {
 
                     {/* Grade explanation */}
                     <WhyThisGrade p={p} />
+                    <h1>
+                        AI OVERVIEW
+                    </h1>
 
                 </div>
             </div>
